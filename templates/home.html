@@ -1,0 +1,13 @@
+<!-- This tag indicates that this file extends the base template -->
+{% extends "base.html" %}
+
+<!-- This block named ‘content’ allows us to define html that can be inserted into the base template block with the same name -->
+{% block content %}
+
+    <!-- This is the template contents that will be inserted into the {block} 'content' in base.html including a dynamic 'username' -->
+    <h1>Hello {{ username }}</h1>
+    <hr>
+    <p>Welcome to the home page of the site.</p>
+   
+
+{% endblock %}

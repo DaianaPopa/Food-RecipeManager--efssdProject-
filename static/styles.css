@@ -1,0 +1,36 @@
+/* Global styles / Bootstrap Overrides */
+
+/* Default body styles */
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Main content area */
+#main-content {
+    background-color: rgba(26, 26, 26, 0.06);
+    padding: 30px;
+    border-radius: 10px 0 0 10px;
+    margin-top: 20px;
+}
+
+/* Sidebar */
+#sidebar {
+    background-color: rgba(30, 30, 30, 0.12);
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 20px;
+}
+
+/* No Border Radius for Main Content and Sidebar on Mobile */
+@media (max-width: 768px) {
+    #main-content, #sidebar {
+        border-radius: 0;
+    }
+}
+
+/* Footer */
+footer {
+    color: #cccccc;
+    width: 100%;
+}
