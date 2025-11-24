@@ -144,6 +144,15 @@ def logout():
     flash(category='info', message='You have been logged out.')
     return redirect(url_for('index'))
 
+# Recipes Page
+@app.route('/recipes/')
+def recipes():
+    return render_template('recipes.html', title="Recipes")
+
+# Recipe page
+@app.route('/recipe/<int:id>/')
+def recipe(id):
+    return render_template('recipe.html', title="Recipe Details")
 
 # # Films List Page
 # @app.route('/films/')
@@ -269,4 +278,4 @@ if __name__ == '__main__':
     print("Starting Flask application...")
     print("Open Your Application in Your Browser: http://localhost:81")
     # The app will run on port 81, accessible from any local IP address
-    app.run(host='0.0.0.0', port=81)
+    app.run(host='0.0.0.0', port=81, debug=True)
