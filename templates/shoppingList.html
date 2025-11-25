@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="mb-3"> Shopping List</h2>
+
+    <!-- Add Item Input -->
+    <div class="d-flex mb-3">
+        <input id="itemInput" type="text" class="form-control" placeholder="Add an item...">
+        <button id="addBtn" class="btn btn-primary ms-2">Add</button>
+    </div>
+
+    <!-- Shopping List Display -->
+    <ul id="list" class="list-group"></ul>
+
+    <!-- Page Script -->
+    <script>
+        const input = document.getElementById("itemInput");
+        const addBtn = document.getElementById("addBtn");
+        const list = document.getElementById("list");
+
+        // Add item
+        function addItem() {
+            const name = input.value.trim();
+            if (!name) return;
+
+            const li = document.createElement("li");
+            li.className = "list-group-item d-flex justify-content-between align-items-center";
+
+            li.innerHTML = `
+                <span class="item-text">${name}</span>
+                <div>
+                    <button class="btn btn-sm btn-success me-2 check-btn">✔</button>
+                    <button class="btn btn-sm btn-danger delete-btn">✕</button>
+                </div>
+            `;
+
+            // Toggle checkmark
+            li.querySelector(".check-btn").onclick = () => {
+                const text = li.querySelector(".item-text");
+                text.classList.toggle("text-decoration-line-through");
+                text.classList.toggle("text-muted");
+            };
+
+            // Delete item
+            li.querySelector(".delete-btn").onclick = () => li.remove();
+
+            list.appendChild(li);
+            input.value = "";
+        }
+
+        addBtn.onclick = addItem;
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") addItem();
+        });
+    </script>
+{% endblock %}

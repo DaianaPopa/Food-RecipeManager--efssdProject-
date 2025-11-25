@@ -142,7 +142,12 @@ def logout():
     # Clear the session and redirect to the index page with a flash message
     session.clear()
     flash(category='info', message='You have been logged out.')
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
+
+
+@app.route('/shoppingList')
+def shoppingList():
+    return render_template("shoppingList.html")
 
 # Recipes Page
 @app.route('/recipes/')
