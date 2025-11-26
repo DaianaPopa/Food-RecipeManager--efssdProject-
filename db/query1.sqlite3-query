@@ -1,0 +1,13 @@
+-- database: ./database.db
+
+SELECT * FROM recipes;
+-- Insert recipes
+INSERT INTO recipes (name, method, cook_time,prep_time, portion) VALUES
+    ('Sausage ragu','To prepare the dish, heat 2 tablespoons of oil in a saucepan, fry onion with salt for 7 minutes, then add garlic, chilli, and rosemary, cooking for an additional minute. Stir in tomatoes and sugar, simmering for 20 minutes. In another pan, heat remaining oil and fry the squeezed sausagemeat for 5-7 minutes until golden. Combine with the sauce, adding milk and lemon zest, then simmer for 5 minutes. Cook pasta according to instructions, drain, and toss with the sauce. Serve topped with parmesan and parsley.', 12, 25, 4),      
+    ('Cowboy pie', 'To make the dish, first prepare the mashed potatoes by boiling chopped potatoes in salted water for 15-20 minutes until tender, then drain and air-dry before mashing with butter and milk. Set aside to keep warm. Next, heat oil in a pan and sauté onions for 6-8 minutes, then add sausage pieces and fry until browned. Stir in garlic and smoked paprika, followed by beans and barbecue sauce, cooking until almost simmering. In an ovenproof dish, combine the sausage and bean mixture with mashed potatoes on top and sprinkle grated cheddar. Bake at 200C for 25-30 minutes until bubbling and golden. Optionally, garnish with chives before serving.', 15, 38, 4);  
+    INSERT INTO ingredients (name, type, kcal) VALUES
+    ('sausage','protein', 120),      
+    ('onion', 'veggie', 15);  
+    INSERT INTO recipe_ingredients (recipe_id, ingredient_id) VALUES
+    (1, 1),  
+    (1, 2);

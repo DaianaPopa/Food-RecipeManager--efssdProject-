@@ -1,0 +1,25 @@
+-- database: c:\Users\popad\OneDrive\Desktop\Food-RecipeManager--efssdProject-\db\database.db
+
+SELECT * FROM users;
+-- Create Table For Ingredients
+CREATE TABLE IF NOT EXISTS ingredients (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        type TEXT,
+        kcal FLOAT
+    );
+CREATE TABLE IF NOT EXISTS recipes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        method TEXT,
+        cook_time FLOAT,
+        prep_time FLOAT,
+        portion INTEGER
+    );
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
+        recipe_id INTEGER NOT NULL,
+        ingredient_id INTEGER NOT NULL,
+        PRIMARY KEY (recipe_id, ingredient_id),
+        FOREIGN KEY (recipe_id) REFERENCES recipes(id),
+        FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
+    );
