@@ -29,9 +29,9 @@
                     <div class="col-8 col-sm-12 col-xl-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ recipe['name'] }} ({{ recipe['portion'] }})</h5>
-                            <p class="card-text mb-1">{{ recipe['cook_time'] }}</p>
+                            <p class="card-text mb-1">{{ recipe['cook_time']}} minutes</p>
                             <!-- Cook/Prep time Badge and View Details Button -->
-                            <div class="badge text-bg-secondary mb-2">{{ recipe['prep_time'] }}</div>
+                            <div class="badge text-bg-secondary mb-2">{{ recipe['prep_time'] }} minutes</div>
                             <br />
                             <a href="{{ url_for('recipe', id=recipe['id']) }}" class="btn btn-sm btn-outline-secondary">Method</a>  
                         </div>
