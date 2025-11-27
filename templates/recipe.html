@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% set title = recipe['name'] %}
+
+{% block content %}
+
+<h1>{{ recipe['name'] }} ({{ recipe['portion'] }})</h1>
+<hr>
+
+<div class="row">
+    <div class="col-md-4 mb-3 text-center">
+        <img src="{{ recipe['poster'] }}" alt="Image for {{ recipe['name'] }}" class="img-fluid">
+    </div>
+
+    <div class="col-md-8">
+
+        <h4>Method</h4>
+        <p>{{ recipe['method'] }}</p>
+
+        <h4>Prep Time</h4>
+        <p>{{ recipe['prep_time'] }}</p>
+
+        <h4>Cook Time</h4>
+        <p>{{ recipe['cook_time'] }}</p>
+
+        <h4>Ingredients</h4>
+        {% if ingredients %}
+            <ul>
+                {% for ing in ingredients %}
+                    <li>{{ ing['name'] }} – {{ ing['amount'] }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No ingredients listed for this recipe.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block sidebarContent %}
+
+<!-- Only show management buttons if the logged-in user is the recipe owner -->
+{% if session['user_id'] == recipe['user_id'] %}
+    <div class="card text-center mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Manage Recipe</h5>
+            <form method="post" action="{{ url_for('delete', id=recipe['id']) }}"
+                  onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <a href="{{ url_for('update', id=recipe['id']) }}" class="btn btn-primary">Update</a>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+{% endif %}
+
+<!-- Back Button -->
+<div class="card text-center mt-3">
+    <div class="card-body">
+        <a href="{{ url_for('recipes') }}" class="btn btn-secondary w-100">Back to All Recipes</a>
+    </div>
+</div>
+
+{% endblock %}

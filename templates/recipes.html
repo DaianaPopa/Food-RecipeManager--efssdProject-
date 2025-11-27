@@ -6,4 +6,44 @@
     <hr>
     <p>Explore our collection of delicious recipes below!</p>
 
+    <!-- Row for Recipes Grid-->
+    <div class="row g-1 g-sm-3">
+    {% for recipe in recipes %}
+
+        <!-- Recipe Card Column -->
+        <div class="col-sm-6">
+
+            <!-- Recipe Card -->
+            <div class="card h-100">
+
+                <!-- Recipe Card Content Row -->
+                <div class="row g-0">
+
+                    <!-- Recipe Image/Poster Columns -->
+                    <div class="col-4 col-sm-12 col-xl-4 bg-secondary-subtle d-flex align-items-center justify-content-center">
+                        <a href="{{ url_for('recipe', id=recipe['id']) }}">
+                            <img src="{{ recipe['poster'] }}" alt="Poster for {{ recipe['name'] }}" class="img-fluid">
+                        </a>
+                    </div>
+                    <!-- Recipe Details Columns -->
+                    <div class="col-8 col-sm-12 col-xl-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe['name'] }} ({{ recipe['portion'] }})</h5>
+                            <p class="card-text mb-1">{{ recipe['cook_time'] }}</p>
+                            <!-- Cook/Prep time Badge and View Details Button -->
+                            <div class="badge text-bg-secondary mb-2">{{ recipe['prep_time'] }}</div>
+                            <br />
+                            <a href="{{ url_for('recipe', id=recipe['id']) }}" class="btn btn-sm btn-outline-secondary">Method</a>  
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> 
+
+        </div> 
+
+    {% endfor %}
+    </div>
+    
 {% endblock %}
