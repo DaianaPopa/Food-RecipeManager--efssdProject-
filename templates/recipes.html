@@ -28,10 +28,10 @@
                     <!-- Recipe Details Columns -->
                     <div class="col-8 col-sm-12 col-xl-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{ recipe['name'] }} ({{ recipe['portion'] }})</h5>
-                            <p class="card-text mb-1">{{ recipe['cook_time']}} minutes</p>
+                            <h5 class="card-title">{{ recipe['name'] }} ({{ recipe['portion'] }} portions)</h5>
+                            <p class="card-text mb-1">Cooking time: {{ recipe['cook_time']}} min</p>
                             <!-- Cook/Prep time Badge and View Details Button -->
-                            <div class="badge text-bg-secondary mb-2">{{ recipe['prep_time'] }} minutes</div>
+                            <div class="badge text-bg-secondary mb-2">Prep time: {{ recipe['prep_time'] }} min</div>
                             <br />
                             <a href="{{ url_for('recipe', id=recipe['id']) }}" class="btn btn-sm btn-outline-secondary">Method</a>  
                         </div>
