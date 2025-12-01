@@ -1,0 +1,680 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping List - KitchenHub{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Header Section -->
+            <div class="shopping-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="fas fa-shopping-basket me-3"></i>My Shopping List
+                        </h1>
+                        <p class="page-subtitle">Everything you need for your next cooking adventure</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline-primary me-2" onclick="window.print()">
+                            <i class="fas fa-print me-2"></i>Print
+                        </button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                            <i class="fas fa-plus me-2"></i>Add Item
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Progress Stats -->
+                <div class="shopping-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ total_items }}</div>
+                        <div class="stat-label">Total Items</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ completed_items }}</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ remaining_items }}</div>
+                        <div class="stat-label">Remaining</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ progress_percentage }}%</div>
+                        <div class="stat-label">Progress</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shopping List -->
+            <div class="shopping-list-container">
+                <!-- Progress Bar -->
+                <div class="progress-container mb-4">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: {{ progress_percentage }}%"
+                             aria-valuenow="{{ progress_percentage }}" 
+                             aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                    <div class="progress-text">
+                        {{ completed_items }} of {{ total_items }} items completed
+                    </div>
+                </div>
+
+                <!-- Bulk Actions -->
+                <div class="bulk-actions mb-4">
+                    <form method="POST" action="{{ url_for('complete_all_items') }}" class="d-inline">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                        <button type="submit" class="btn btn-success btn-sm me-2">
+                            <i class="fas fa-check-double me-1"></i>Complete All
+                        </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('clear_completed_items') }}" class="d-inline">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                        <button type="submit" class="btn btn-warning btn-sm">
+                            <i class="fas fa-broom me-1"></i>Clear Completed
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Add Common Items -->
+                <div class="quick-add mb-4">
+                    <h6 class="mb-2">
+                        <i class="fas fa-bolt me-2"></i>Quick Add:
+                    </h6>
+                    <div class="quick-buttons">
+                        <a href="{{ url_for('quick_add_item', item_name='milk') }}" class="btn btn-outline-secondary btn-sm me-2 mb-2">
+                            <i class="fas fa-plus me-1"></i>Milk
+                        </a>
+                        <a href="{{ url_for('quick_add_item', item_name='bread') }}" class="btn btn-outline-secondary btn-sm me-2 mb-2">
+                            <i class="fas fa-plus me-1"></i>Bread
+                        </a>
+                        <a href="{{ url_for('quick_add_item', item_name='eggs') }}" class="btn btn-outline-secondary btn-sm me-2 mb-2">
+                            <i class="fas fa-plus me-1"></i>Eggs
+                        </a>
+                        <a href="{{ url_for('quick_add_item', item_name='bananas') }}" class="btn btn-outline-secondary btn-sm me-2 mb-2">
+                            <i class="fas fa-plus me-1"></i>Bananas
+                        </a>
+                        <a href="{{ url_for('quick_add_item', item_name='potatoes') }}" class="btn btn-outline-secondary btn-sm me-2 mb-2">
+                            <i class="fas fa-plus me-1"></i>Potatoes
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Shopping Items -->
+                <div class="shopping-items">
+                    {% for item in items %}
+                    <div class="shopping-item {% if item['completed'] %}completed{% endif %}">
+                        <!-- Checkbox Form -->
+                        <form method="POST" action="{{ url_for('update_shopping_item', item_id=item['id']) }}" class="item-checkbox-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                            <div class="item-checkbox">
+                                <input type="checkbox" {% if item['completed'] %}checked{% endif %} 
+                                       onchange="this.form.submit()">
+                                <span class="checkmark"></span>
+                            </div>
+                        </form>
+                        
+                        <div class="item-content">
+                            <div class="item-name {% if item['completed'] %}completed-text{% endif %}">
+                                {{ item['item'] }}
+                            </div>
+                            <div class="item-meta">
+                                <span class="item-quantity">
+                                    <i class="fas fa-weight me-1"></i>{{ item['quantity'] }}
+                                </span>
+                                <span class="item-category">
+                                    <i class="fas fa-tag me-1"></i>{{ item['category'] }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="item-actions">
+                            <!-- Edit Button -->
+                            <button class="btn btn-sm btn-outline-secondary me-1" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editItemModal"
+                                    onclick="setEditItem({{ item['id'] }}, '{{ item['item'] }}', '{{ item['quantity'] }}', '{{ item['category'] }}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            
+                            <!-- Delete Form -->
+                            <form method="POST" action="{{ url_for('delete_shopping_item', item_id=item['id']) }}" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                        onclick="return confirm('Are you sure you want to delete {{ item['item'] }}?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Empty State -->
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </div>
+                        <h3>Your shopping list is empty</h3>
+                        <p>Add items to get started with your shopping!</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                            <i class="fas fa-plus me-2"></i>Add Your First Item
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Recipe Suggestions -->
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <i class="fas fa-utensils me-2"></i>Recipe Suggestions
+                </div>
+                <div class="card-body">
+                    {% set pending_items = [] %}
+                    {% for item in items %}
+                        {% if not item['completed'] %}
+                            {% set _ = pending_items.append(item) %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if pending_items %}
+                        {% set has_rice = false %}
+                        {% set has_vegetables = false %}
+                        
+                        {% for item in pending_items %}
+                            {% if item['item'] == 'Rice' %}
+                                {% set has_rice = true %}
+                            {% endif %}
+                            {% if item['category'] == 'vegetables' %}
+                                {% set has_vegetables = true %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if has_rice %}
+                        <div class="recipe-suggestion">
+                            <div class="recipe-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            <div class="recipe-info">
+                                <h6>Jollof Rice</h6>
+                                <p>You have rice in your list!</p>
+                            </div>
+                            <a href="{{ url_for('recipe', recipe_id=1) }}" class="btn btn-sm btn-outline-primary">View</a>
+                        </div>
+                        {% endif %}
+                        
+                        {% if has_vegetables %}
+                        <div class="recipe-suggestion">
+                            <div class="recipe-image" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);"></div>
+                            <div class="recipe-info">
+                                <h6>Fresh Salad</h6>
+                                <p>Perfect for your vegetables</p>
+                            </div>
+                            <a href="{{ url_for('recipe', recipe_id=4) }}" class="btn btn-sm btn-outline-primary">View</a>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        <p class="text-muted">Add items to see recipe suggestions!</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Shopping Tips -->
+            <div class="sidebar-card">
+                <div class="card-header">
+                    <i class="fas fa-lightbulb me-2"></i>Shopping Tips
+                </div>
+                <div class="card-body">
+                    <div class="tip-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <span>Buy seasonal produce for better prices</span>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <span>Check your pantry before shopping</span>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check text-success me-2"></i>
+                        <span>Plan meals for the week ahead</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus me-2"></i>Add New Item
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_shopping_item') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Item Name</label>
+                        <input type="text" class="form-control" name="item_name" 
+                               placeholder="e.g., Tomatoes, Chicken, Rice..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="text" class="form-control" name="item_quantity" 
+                               placeholder="e.g., 500g, 2 pieces, 1 bunch...">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" name="item_category">
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="meat">Meat & Poultry</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="grains">Grains & Pasta</option>
+                            <option value="spices">Spices & Herbs</option>
+                            <option value="other" selected>Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add Item
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Item Modal -->
+<div class="modal fade" id="editItemModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-edit me-2"></i>Edit Item
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="" id="editItemForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div class="modal-body">
+                    <input type="hidden" name="item_id" id="editItemId">
+                    <div class="mb-3">
+                        <label class="form-label">Item Name</label>
+                        <input type="text" class="form-control" name="item_name" id="editItemName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="text" class="form-control" name="item_quantity" id="editItemQuantity">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" name="item_category" id="editItemCategory">
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="meat">Meat & Poultry</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="grains">Grains & Pasta</option>
+                            <option value="spices">Spices & Herbs</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript for the edit modal
+function setEditItem(id, name, quantity, category) {
+    document.getElementById('editItemId').value = id;
+    document.getElementById('editItemName').value = name;
+    document.getElementById('editItemQuantity').value = quantity;
+    document.getElementById('editItemCategory').value = category;
+    
+    // Update form action
+    const form = document.getElementById('editItemForm');
+    form.action = "{{ url_for('edit_shopping_item', item_id=0) }}".replace('0', id);
+}
+</script>
+
+<style>
+/* Shopping List Styles */
+.shopping-header {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2D3748;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: #718096;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+/* Stats Cards */
+.shopping-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Shopping Items */
+.shopping-list-container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.progress-container {
+    background: #F7FAFC;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.progress {
+    height: 12px;
+    background: #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: #718096;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Bulk Actions */
+.bulk-actions {
+    background: #F7FAFC;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+/* Quick Add */
+.quick-add {
+    background: #F7FAFC;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.quick-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Shopping Items */
+.shopping-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.shopping-item {
+    display: flex;
+    align-items: center;
+    background: #F7FAFC;
+    padding: 1.5rem;
+    border-radius: 15px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+    gap: 1rem;
+}
+
+.shopping-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.shopping-item.completed {
+    opacity: 0.7;
+    background: #F0FFF4;
+    border-left-color: #48bb78;
+}
+
+/* Checkbox */
+.item-checkbox-form {
+    margin: 0;
+}
+
+.item-checkbox {
+    position: relative;
+}
+
+.item-checkbox input {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 2px solid #CBD5E0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.item-checkbox input:checked + .checkmark {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    border-color: #48bb78;
+}
+
+.item-checkbox input:checked + .checkmark::after {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+}
+
+/* Item Content */
+.item-content {
+    flex: 1;
+}
+
+.item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 0.25rem;
+}
+
+.item-name.completed-text {
+    text-decoration: line-through;
+    color: #718096;
+}
+
+.item-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #718096;
+}
+
+.item-quantity,
+.item-category {
+    display: flex;
+    align-items: center;
+}
+
+/* Item Actions */
+.item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #718096;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: #CBD5E0;
+    margin-bottom: 1.5rem;
+}
+
+.empty-state h3 {
+    color: #2D3748;
+    margin-bottom: 1rem;
+}
+
+/* Sidebar Cards */
+.sidebar-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.sidebar-card .card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.25rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.sidebar-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Recipe Suggestions */
+.recipe-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.recipe-suggestion:last-child {
+    border-bottom: none;
+}
+
+.recipe-image {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.recipe-info {
+    flex: 1;
+}
+
+.recipe-info h6 {
+    margin-bottom: 0.25rem;
+    color: #2D3748;
+}
+
+.recipe-info p {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-bottom: 0;
+}
+
+/* Tips */
+.tip-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.tip-item:last-child {
+    border-bottom: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .shopping-header {
+        padding: 1.5rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .shopping-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .shopping-list-container {
+        padding: 1.5rem;
+    }
+    
+    .shopping-item {
+        padding: 1rem;
+    }
+    
+    .header-actions {
+        margin-top: 1rem;
+    }
+}
+</style>
+{% endblock %}
