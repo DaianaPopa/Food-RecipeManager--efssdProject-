@@ -23,11 +23,21 @@
         <h4>Cook Time</h4>
         <p>{{ recipe['cook_time'] }}</p>
 
+        <h4>Cuisine</h4>
+        <p>{{ recipe['cuisine'] }}</p>
+
+        <h4>Rating</h4>
+        <p>{{ recipe['rating'] }}</p>
+
+        <h4>Review</h4>
+        <p>{{ recipe['review'] }}</p>
+
+
         <h4>Ingredients</h4>
         {% if ingredients %}
             <ul>
                 {% for ing in ingredients %}
-                    <li>{{ ing['name'] }} – {{ ing['amount'] }}</li>
+                    <li>{{ ing['name'] }} – {{ ing['kcal'] }} kcal</li>
                 {% endfor %}
             </ul>
         {% else %}

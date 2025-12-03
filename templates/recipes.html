@@ -3,8 +3,12 @@
 <!--Page Content-->
 {% block content %}
     <h1>Recipes</h1>
+     <div class="text-end mb-3">
+        <a href="{{ url_for('create') }}" class="btn btn-success">+ Add </a>
+    </div>
     <hr>
     <p>Explore our collection of delicious recipes below!</p>
+   
 
     <!-- Row for Recipes Grid-->
     <div class="row g-1 g-sm-3">

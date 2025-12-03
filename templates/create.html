@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Add a Recipe</h1>
+<hr>
+
+<form method="post" enctype="multipart/form-data" class="row g-3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    <!-- Recipe Name -->
+    <div class="col-12">
+        <div class="form-floating">
+            <input name="name" type="text" class="form-control" id="name" placeholder="Recipe Name" required>
+            <label for="name">Recipe Title</label>
+        </div>
+    </div>
+
+    <!-- Portion -->
+    <div class="col-md-4">
+        <div class="form-floating">
+            <input name="portion" type="number" class="form-control" id="portion" placeholder="Servings" min="1" required>
+            <label for="portion">Portions</label>
+        </div>
+    </div>
+
+    <!-- Prep Time -->
+    <div class="col-md-4">
+        <div class="form-floating">
+            <input name="prep_time" type="number" class="form-control" id="prep_time" placeholder="Prep Time" min="0" required>
+            <label for="prep_time">Prep Time (min)</label>
+        </div>
+    </div>
+
+    <!-- Cook Time -->
+    <div class="col-md-4">
+        <div class="form-floating">
+            <input name="cook_time" type="number" class="form-control" id="cook_time" placeholder="Cook Time" min="0" required>
+            <label for="cook_time">Cook Time (min)</label>
+        </div>
+    </div>
+
+    <!-- Cuisine -->
+    <div class="col-12">
+        <div class="form-floating">
+            <input name="cuisine" type="text" class="form-control" id="cuisine" placeholder="Cuisine">
+            <label for="cuisine">Cuisine</label>
+        </div>
+    </div>
+
+    <!-- Method -->
+    <div class="col-12">
+        <div class="form-floating">
+            <textarea name="method" class="form-control" id="method" placeholder="Method" style="height: 120px" required></textarea>
+            <label for="method">Method</label>
+        </div>
+    </div>
+
+    <!-- Ingredients (simple textarea version) -->
+    <div class="col-12">
+        <div class="form-floating">
+            <textarea name="ingredients" class="form-control" id="ingredients" placeholder="Ingredients" style="height: 120px"></textarea>
+            <label for="ingredients">Ingredients (one per line)</label>
+        </div>
+    </div>
+
+    <!-- Recipe Image -->
+    <div class="col-12">
+        <label for="poster" class="form-label">Recipe Image</label>
+        <input name="poster" type="file" accept="image/*" class="form-control" id="poster">
+    </div>
+
+    <!-- Rating -->
+    <div class="col-12 text-center">
+        <label class="form-label text-muted">Rating</label>
+        <div class="btn-group" role="group">
+            {% for r in range(1,6) %}
+                <input type="radio" class="btn-check" name="rating" id="rating{{ r }}" value="{{ r }}">
+                <label class="btn btn-outline-primary" for="rating{{ r }}">{{ r }}</label>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Review -->
+    <div class="col-12">
+        <div class="form-floating">
+            <textarea name="review" class="form-control" id="review" style="height: 100px"></textarea>
+            <label for="review">Review</label>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="col-12 text-center">
+        <button type="submit" class="btn btn-success w-100">Create Recipe</button>
+    </div>
+
+</form>
+
+{% endblock %}
