@@ -24,13 +24,28 @@ CREATE TABLE IF NOT EXISTS recipe_ingredients (
         FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
     );
 -- Insert recipes
-INSERT INTO recipes (name, method, cook_time,prep_time, portion) VALUES
+INSERT INTO recipes (name, method, cook_time, prep_time, portion) VALUES
     ('Sausage ragu','To prepare the dish, heat 2 tablespoons of oil in a saucepan, fry onion with salt for 7 minutes, then add garlic, chilli, and rosemary, cooking for an additional minute. Stir in tomatoes and sugar, simmering for 20 minutes. In another pan, heat remaining oil and fry the squeezed sausagemeat for 5-7 minutes until golden. Combine with the sauce, adding milk and lemon zest, then simmer for 5 minutes. Cook pasta according to instructions, drain, and toss with the sauce. Serve topped with parmesan and parsley.', 12, 25, 4),      
-    ('Cowboy pie', 'To make the dish, first prepare the mashed potatoes by boiling chopped potatoes in salted water for 15-20 minutes until tender, then drain and air-dry before mashing with butter and milk. Set aside to keep warm. Next, heat oil in a pan and sauté onions for 6-8 minutes, then add sausage pieces and fry until browned. Stir in garlic and smoked paprika, followed by beans and barbecue sauce, cooking until almost simmering. In an ovenproof dish, combine the sausage and bean mixture with mashed potatoes on top and sprinkle grated cheddar. Bake at 200C for 25-30 minutes until bubbling and golden. Optionally, garnish with chives before serving.', 15, 38, 4);  
+    ('Cowboy pie', 'To make the dish, first prepare the mashed potatoes by boiling chopped potatoes in salted water for 15-20 minutes until tender, then drain and air-dry before mashing with butter and milk. Set aside to keep warm. Next, heat oil in a pan and sauté onions for 6-8 minutes, then add sausage pieces and fry until browned. Stir in garlic and smoked paprika, followed by beans and barbecue sauce, cooking until almost simmering. In an ovenproof dish, combine the sausage and bean mixture with mashed potatoes on top and sprinkle grated cheddar. Bake at 200C for 25-30 minutes until bubbling and golden. Optionally, garnish with chives before serving.', 15, 38, 4);
+    ('Steak fajitas', 'To prepare the dish, start by heating a large frying pan over high heat. Add the sliced steak and cook for 2-3 minutes until browned, then remove from the pan and set aside. In the same pan, add a bit more oil if needed and sauté the sliced bell peppers and onions for about 5 minutes until they are tender-crisp. Return the steak to the pan, add the fajita seasoning mix along with a splash of water, and stir everything together, cooking for another 2 minutes to allow the flavors to meld. Warm the tortillas in a separate pan or microwave. Serve the steak and vegetable mixture in the warm tortillas, garnished with your choice of toppings such as sour cream, guacamole, salsa, and shredded cheese.', 10, 20, 4);
+    ('Spaghetti and Bolognese', 'To prepare the dish, heat oil in a large pan over medium heat. Add chopped onions, carrots, and celery, cooking until softened. Add minced beef and cook until browned. Stir in garlic, tomato paste, canned tomatoes, and herbs. Simmer for at least 30 minutes, adding water or stock as needed. Meanwhile, cook spaghetti according to package instructions. Drain and serve topped with the Bolognese sauce and grated Parmesan cheese.', 30, 15, 4);
+    ('Tortilla Pizza', 'To prepare the dish, preheat your oven to 200°C (400°F). Place a tortilla on a baking sheet and spread a thin layer of tomato sauce over it. Sprinkle with shredded mozzarella cheese and add your favorite toppings such as sliced bell peppers, olives, and pepperoni. Bake in the preheated oven for about 8-10 minutes, or until the cheese is melted and bubbly and the edges of the tortilla are crispy. Remove from the oven, let it cool slightly, then slice and serve.', 10, 10, 2);
+    ('Salmon Pasta', 'To prepare the dish, cook the pasta according to package instructions until al dente. Drain and set aside. In a large pan, heat olive oil over medium heat and sauté chopped onions and garlic until translucent. Add diced tomatoes and cook for a few minutes until they start to soften. Stir in cream and bring to a gentle simmer. Add cooked salmon pieces, season with salt, pepper, and fresh dill, and cook for another 5 minutes. Toss the cooked pasta into the sauce, mixing well to combine. Serve hot, garnished with extra dill and lemon wedges if desired.', 15, 20, 4);
+-- Insert ingredients and link to recipes
     INSERT INTO ingredients (name, type, kcal) VALUES
     ('sausage','protein', 120),      
-    ('onion', 'veggie', 15);  
+    ('onion', 'veggie', 15);
+    ('tomato', 'veggie', 20);
+    ('minced beef', 'protein', 250);
+    ('tortilla', 'carb', 150);
+    ('salmon', 'protein', 200);
+-- Link ingredients to recipes
     INSERT INTO recipe_ingredients (recipe_id, ingredient_id) VALUES
     (1, 1),  
     (1, 2);
+    (1, 3);
+    (1, 4);
+    (1, 5);
+    (1, 6);
+-- Add poster column to recipes table
 ALTER TABLE recipes ADD COLUMN poster TEXT;

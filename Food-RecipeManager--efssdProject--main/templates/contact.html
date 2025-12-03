@@ -1,0 +1,722 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - KitchenHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Contact Page Specific Styles */
+    .contact-hero {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), 
+                    url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 100px 0 60px;
+        text-align: center;
+    }
+
+    .contact-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .contact-hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+    }
+
+    .contact-section {
+        padding: 80px 0;
+        background: #F7FAFC;
+    }
+
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .contact-info {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .contact-info h2 {
+        font-size: 2rem;
+        color: #2D3748;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #E2E8F0;
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .info-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+    .info-content h4 {
+        font-size: 1.1rem;
+        color: #2D3748;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .info-content p {
+        color: #718096;
+        line-height: 1.6;
+    }
+
+    .info-content a {
+        color: #667eea;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .info-content a:hover {
+        color: #764ba2;
+    }
+
+    /* Contact Form */
+    .contact-form-container {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .contact-form-container h2 {
+        font-size: 2rem;
+        color: #2D3748;
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2D3748;
+        font-weight: 500;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #E2E8F0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        background: #F7FAFC;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        background: white;
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .form-check-input {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        color: #718096;
+        font-size: 0.9rem;
+    }
+
+    .form-check-label a {
+        color: #667eea;
+        text-decoration: none;
+    }
+
+    .form-check-label a:hover {
+        text-decoration: underline;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Form Status Messages */
+    .form-status {
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        display: none;
+    }
+
+    .form-status.success {
+        background: #C6F6D5;
+        color: #276749;
+        border: 1px solid #9AE6B4;
+        display: block;
+    }
+
+    .form-status.error {
+        background: #FED7D7;
+        color: #C53030;
+        border: 1px solid #FC8181;
+        display: block;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        padding: 80px 0;
+        background: white;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+        font-size: 2.5rem;
+        color: #2D3748;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .section-title p {
+        color: #718096;
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        margin-bottom: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .faq-question {
+        background: #F7FAFC;
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+        background: #EDF2F7;
+    }
+
+    .faq-question h3 {
+        font-size: 1.1rem;
+        color: #2D3748;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .faq-question i {
+        color: #667eea;
+        transition: transform 0.3s;
+    }
+
+    .faq-answer {
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s;
+        background: white;
+    }
+
+    .faq-answer.show {
+        padding: 20px;
+        max-height: 500px;
+    }
+
+    .faq-answer p {
+        color: #718096;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .contact-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .contact-hero p {
+            font-size: 1.1rem;
+        }
+
+        .contact-info,
+        .contact-form-container {
+            padding: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .contact-hero {
+            padding: 80px 0 40px;
+        }
+
+        .contact-hero h1 {
+            font-size: 2rem;
+        }
+
+        .info-item {
+            flex-direction: column;
+        }
+
+        .info-icon {
+            margin-bottom: 15px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="contact-hero">
+    <div class="container">
+        <h1>Get in Touch</h1>
+        <p>Have questions, feedback, or need support? We're here to help you with your cooking journey.</p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container contact-container">
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="info-content">
+                    <h4>Our Location</h4>
+                    <p>123 Kitchen Street<br>Food City, FC 12345<br>United Kingdom</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="info-content">
+                    <h4>Phone Numbers</h4>
+                    <p>Customer Support: <a href="tel:+442012345678">+44 20 1234 5678</a><br>
+                       Business Inquiries: <a href="tel:+442098765432">+44 20 9876 5432</a></p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="info-content">
+                    <h4>Email Addresses</h4>
+                    <p>General Inquiries: <a href="mailto:info@kitchenhub.com">info@kitchenhub.com</a><br>
+                       Support: <a href="mailto:support@kitchenhub.com">support@kitchenhub.com</a><br>
+                       Partnerships: <a href="mailto:partners@kitchenhub.com">partners@kitchenhub.com</a></p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="info-content">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                       Saturday: 10:00 AM - 4:00 PM<br>
+                       Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+            <h2>Send Us a Message</h2>
+            
+            <!-- Form Status Messages -->
+            <div id="formStatus" class="form-status"></div>
+            
+            <form id="contactForm" method="POST" action="{{ url_for('contact') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                
+                <div class="form-group">
+                    <label class="form-label" for="name">Full Name *</label>
+                    <input type="text" class="form-control" id="name" name="name" required 
+                           placeholder="Enter your full name">
+                    <div class="error-message" id="nameError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address *</label>
+                    <input type="email" class="form-control" id="email" name="email" required 
+                           placeholder="Enter your email address">
+                    <div class="error-message" id="emailError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="subject">Subject *</label>
+                    <input type="text" class="form-control" id="subject" name="subject" required 
+                           placeholder="What is this regarding?">
+                    <div class="error-message" id="subjectError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="message">Message *</label>
+                    <textarea class="form-control" id="message" name="message" required 
+                              placeholder="Tell us how we can help you..."></textarea>
+                    <div class="error-message" id="messageError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="category">Category</label>
+                    <select class="form-control" id="category" name="category">
+                        <option value="">Select a category</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="support">Technical Support</option>
+                        <option value="feedback">Feedback & Suggestions</option>
+                        <option value="partnership">Partnership Opportunities</option>
+                        <option value="billing">Billing & Payments</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="newsletter" name="newsletter" checked>
+                    <label class="form-check-label" for="newsletter">
+                        I'd like to receive cooking tips, recipes, and updates from KitchenHub
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
+                    <label class="form-check-label" for="privacy">
+                        I agree to the <a href="#">Privacy Policy</a> and consent to having my data processed *
+                    </label>
+                    <div class="error-message" id="privacyError"></div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find quick answers to common questions about KitchenHub</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I reset my password?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Click on "Forgot Password" on the login page, enter your email address, and we'll send you a password reset link. The link will expire in 24 hours for security reasons.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I download recipes for offline use?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! With our mobile app, you can save recipes for offline access. Just tap the download icon on any recipe in the app, and it will be available even without an internet connection.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I create a shopping list from recipes?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>When viewing any recipe, click the "Add to Shopping List" button. You can also select multiple recipes and generate a combined shopping list. The list automatically organizes ingredients by category for easier shopping.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Is KitchenHub free to use?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>KitchenHub offers a free plan with access to basic recipes and shopping list features. We also offer Premium and Pro plans with additional features like advanced meal planning, nutritional analysis, and priority support.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How long does it take to get a response to my inquiry?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We typically respond within 24 hours during business days. For urgent technical issues, please call our support line for immediate assistance during business hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // FAQ Toggle Function
+    function toggleFAQ(element) {
+        const answer = element.nextElementSibling;
+        const icon = element.querySelector('i');
+        
+        if (answer.classList.contains('show')) {
+            answer.classList.remove('show');
+            icon.style.transform = 'rotate(0deg)';
+        } else {
+            // Close other open FAQs
+            document.querySelectorAll('.faq-answer.show').forEach(el => {
+                el.classList.remove('show');
+                el.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+            });
+            
+            answer.classList.add('show');
+            icon.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    // Form Validation and Submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formStatus = document.getElementById('formStatus');
+        
+        // Clear error messages
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.textContent = '';
+                el.style.display = 'none';
+            });
+        }
+        
+        // Show error message
+        function showError(fieldId, message) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.style.display = 'block';
+                errorEl.style.color = '#C53030';
+                errorEl.style.fontSize = '0.9rem';
+                errorEl.style.marginTop = '5px';
+            }
+        }
+        
+        // Validate form
+        function validateForm() {
+            let isValid = true;
+            clearErrors();
+            
+            // Name validation
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                showError('name', 'Please enter your name');
+                isValid = false;
+            }
+            
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                showError('email', 'Please enter your email address');
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            // Subject validation
+            const subject = document.getElementById('subject').value.trim();
+            if (!subject) {
+                showError('subject', 'Please enter a subject');
+                isValid = false;
+            }
+            
+            // Message validation
+            const message = document.getElementById('message').value.trim();
+            if (!message) {
+                showError('message', 'Please enter your message');
+                isValid = false;
+            } else if (message.length < 10) {
+                showError('message', 'Message must be at least 10 characters');
+                isValid = false;
+            }
+            
+            // Privacy policy checkbox
+            const privacy = document.getElementById('privacy');
+            if (!privacy.checked) {
+                showError('privacy', 'You must agree to the privacy policy');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Form submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            // Simulate form submission (in real app, this would be AJAX to Flask)
+            setTimeout(() => {
+                // Show success message
+                formStatus.className = 'form-status success';
+                formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                
+                // Scroll to top to show success message
+                formStatus.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Clear success message after 5 seconds
+                setTimeout(() => {
+                    formStatus.className = 'form-status';
+                    formStatus.innerHTML = '';
+                }, 5000);
+            }, 1500);
+        });
+        
+        // Real-time validation
+        ['name', 'email', 'subject', 'message'].forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('blur', validateForm);
+                field.addEventListener('input', function() {
+                    // Clear error when user starts typing
+                    const errorEl = document.getElementById(fieldId + 'Error');
+                    if (errorEl) {
+                        errorEl.textContent = '';
+                        errorEl.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Privacy checkbox validation
+        document.getElementById('privacy').addEventListener('change', function() {
+            const errorEl = document.getElementById('privacyError');
+            if (errorEl) {
+                errorEl.textContent = '';
+                errorEl.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}

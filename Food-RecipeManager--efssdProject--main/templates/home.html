@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitchenHub - Find Recipes & Ingredients</title>
+    
+    <style>
+        /* ===== SUPER SIMPLE STYLES ===== */
+        :root {
+            --yellow: #FFC244;
+            --orange: #FF6B35;
+            --teal: #00B9AE;
+            --dark: #1A1A1A;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #F9FAFB;
+            color: var(--dark);
+        }
+
+        /* ===== NAVIGATION BAR ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-logo span {
+            color: var(--yellow);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--yellow);
+        }
+        
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--orange);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            position: relative;
+            transition: background-image 1s ease-in-out;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: bounceIn 1s ease;
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .cta-button {
+            background: var(--yellow);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 198, 68, 0.4);
+        }
+        
+        /* ===== AUTO-PLAYING VIDEO SECTION ===== */
+        .video-showcase {
+            background: var(--teal);
+            padding: 5rem 2rem;
+            color: white;
+        }
+        
+        .video-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: black;
+        }
+        
+        .youtube-video {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-info {
+            padding: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .video-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .step-number {
+            background: var(--yellow);
+            color: var(--dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .nav-menu span {
+                display: none;
+            }
+            
+            .btn-primary {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .youtube-video {
+                height: 200px;
+            }
+        }
+    </style>
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                 <span>KITCHENHUB</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li>
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/recipes" class="nav-link">
+                        <i class="fas fa-utensils"></i>
+                        <span>Recipes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                
+                {% if session['user_id'] %}
+                    <li>
+                        <a href="/shopping" class="nav-link">
+                            <i class="fas fa-shopping-basket"></i>
+                            <span>Shopping List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" class="btn-primary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="/login" class="nav-link">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/register" class="btn-primary">
+                            <i class="fas fa-user-plus"></i>
+                            Sign Up
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== BIG WELCOME SECTION ===== -->
+    <section class="hero" id="heroBanner">
+        <div class="hero-content">
+            <h1> Cook Like a PRO! </h1>
+            <p>Find yummy recipes and get all ingredients you need</p>
+            <a href="/recipes" class="cta-button">
+                <i class="fas fa-utensils"></i> Find Recipes Now!
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== AUTO-PLAYING YOUTUBE VIDEOS ===== -->
+    <section class="video-showcase">
+        <h2 class="section-title" style="color: white;">Watch & Learn Cooking!</h2>
+        <div class="video-grid">
+            <!-- Video 1 - Pasta -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe class="youtube-video" 
+                            src="https://www.youtube.com/embed/B0VtuBNEgII?autoplay=1&mute=1&controls=0&loop=1&playlist=B0VtuBNEgII&rel=0&modestbranding=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-info">
+                    <h4>Easy Pasta Recipe </h4>
+                    <p>Learn to make delicious pasta in 20 minutes!</p>
+                </div>
+            </div>
+            
+            <!-- Video 2 - Pizza -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe class="youtube-video" 
+                            src="https://www.youtube.com/embed/sv3TXMSv6Lw?autoplay=1&mute=1&controls=0&loop=1&playlist=sv3TXMSv6Lw&rel=0&modestbranding=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-info">
+                    <h4>Homemade Pizza </h4>
+                    <p>Make perfect pizza at home - so fun!</p>
+                </div>
+            </div>
+            
+            <!-- Video 3 - Burger -->
+            <div class="video-card">
+                <div class="video-container">
+                    <iframe class="youtube-video" 
+                            src="https://www.youtube.com/embed/L6yX6Oxy_J8?autoplay=1&mute=1&controls=0&loop=1&playlist=L6yX6Oxy_J8&rel=0&modestbranding=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-info">
+                    <h4>Juicy Burger </h4>
+                    <p>Best burger you'll ever taste!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHAT WE DO SECTION ===== -->
+    <section class="features">
+        <h2 class="section-title">What You Can Do Here </h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Find Recipes</h3>
+                <p>Search thousands of delicious recipes for any meal</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Get Ingredients</h3>
+                <p>See exactly what you need to buy at the store</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>Shopping List</h3>
+                <p>Save all ingredients in one easy shopping list</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS SECTION ===== -->
+    <section class="how-it-works">
+        <h2 class="section-title">How It Works </h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Pick Recipe</h3>
+                <p>Choose what you want to cook</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Get Ingredients</h3>
+                <p>See everything you need to buy</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Go Shopping</h3>
+                <p>Take your list to the store</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Cook & Enjoy!</h3>
+                <p>Make delicious food and eat!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FINAL CALL TO ACTION ===== -->
+    <section style="background: var(--yellow); padding: 4rem 2rem; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Cook? </h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join thousands of happy cooks today!</p>
+        <a href="/register" class="cta-button" style="background: var(--dark); color: white;">
+            <i class="fas fa-user-plus"></i> Start Cooking Now!
+        </a>
+    </section>
+
+    <script>
+        // ===== MAGIC BANNER CHANGER =====
+        const bannerImages = [
+            'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+            'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+            'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+            'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+        ];
+
+        let currentImageIndex = 0;
+        const heroBanner = document.getElementById('heroBanner');
+
+        function changeBannerImage() {
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * bannerImages.length);
+            } while (newIndex === currentImageIndex && bannerImages.length > 1);
+            
+            currentImageIndex = newIndex;
+            heroBanner.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${bannerImages[currentImageIndex]}')`;
+        }
+
+        function startBannerRotation() {
+            changeBannerImage();
+            setInterval(changeBannerImage, 10000);
+        }
+
+        // ===== AUTO-PLAY VIDEOS WHEN VISIBLE =====
+        function setupVideoAutoplay() {
+            const videoCards = document.querySelectorAll('.video-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const iframe = entry.target.querySelector('.youtube-video');
+                    if (entry.isIntersecting) {
+                        // Video is visible - ensure it's playing
+                        console.log(' Video is visible - playing automatically');
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of video is visible
+            });
+
+            videoCards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Simple animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start the banner rotation
+            startBannerRotation();
+            
+            // Setup video autoplay
+            setupVideoAutoplay();
+            
+            // Make feature cards appear one by one
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.animation = `fadeIn 0.5s ease ${index * 0.2}s both`;
+            });
+            
+            console.log(' YouTube videos are set to autoplay when visible!');
+        });
+
+        // Bonus: Click banner to change image
+        heroBanner.addEventListener('click', function() {
+            changeBannerImage();
+        });
+    </script>
+</body>
+</html>

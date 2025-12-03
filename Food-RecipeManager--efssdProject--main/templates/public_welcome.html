@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitchenHub | Cook Like A Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --secondary: #00B9AE;
+            --accent: #FFC244;
+            --dark: #2D3748;
+            --light: #F7FAFC;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --gray: #718096;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo  {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box button {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #ffb62d;
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            text-align: center;
+            padding: 50px 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .feature-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+
+        .feature-link:hover {
+            gap: 12px;
+        }
+
+        /* Mobile App Section */
+        .app-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+        }
+
+        .app-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .app-content {
+            flex: 1;
+        }
+
+        .app-content h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .app-content p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .app-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .app-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .app-feature i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            width: 24px;
+        }
+
+        .app-feature span {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .app-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--dark);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+            min-width: 180px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .app-btn:hover {
+            background: #1a252f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .app-btn i {
+            font-size: 2rem;
+        }
+
+        .app-btn-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-btn-text small {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .app-btn-text div {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .app-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            height: 650px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            overflow: hidden;
+            border: 12px solid #1a1a1a;
+        }
+
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        .phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Recipes Section */
+        .recipes {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .recipe-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .recipe-time {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .recipe-content {
+            padding: 25px;
+        }
+
+        .recipe-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .recipe-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .view-recipe {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .view-recipe:hover {
+            background: var(--primary-dark);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0 auto 25px;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--primary);
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--dark) 0%, #1A202C 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .btn-large {
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .app-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .app-buttons {
+                justify-content: center;
+            }
+
+            .phone-mockup {
+                width: 280px;
+                height: 570px;
+            }
+
+            .features-grid,
+            .recipes-grid,
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .app-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .search-box {
+                flex-direction: column;
+                border-radius: 20px;
+            }
+
+            .search-box input {
+                border-radius: 20px 20px 0 0;
+            }
+
+            .search-box button {
+                border-radius: 0 0 20px 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=100&h=100&fit=crop&crop=center" alt="KitchenHub Logo">
+                <h1>Kitchen<span>Hub</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Recipes</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">ShoppingLists</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/login" class="btn btn-outline">Sign In</a>
+                <a href="/register" class="btn btn-primary">Sign Up Free</a>
+            </div>
+        </div>
+    </header>
+    
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Transform Your Cooking Experience</h2>
+            <p>Discover thousands of chef-tested recipes, create smart shopping lists, and cook with confidence using our all-in-one kitchen companion</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search recipes, ingredients, or cooking techniques...">
+                <button><i class="fas fa-search"></i> Find Recipes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- For the added you tube video -->
+    <!-- Add this right after the Hero Section -->
+<section class="video-section">
+    <div class="container">
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/67M1c8cpbvg?autoplay=1&mute=1" 
+                    title="KitchenHub Introduction Video" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Add these styles to the existing CSS */
+    .video-section {
+        padding: 40px 0;
+        background: white;
+    }
+    
+    .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .video-container iframe {
+        width: 100%;
+        height: 450px;
+        display: block;
+    }
+    
+    /* Fix for the phone screen */
+    .phone-screen {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+    
+    .phone-screen::before {
+        content: "KitchenHub";
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    
+    .phone-screen::after {
+        content: "Cook Like A Pro";
+        font-size: 14px;
+        opacity: 0.9;
+    }
+    
+    /* Add a subtle app interface inside the phone */
+    .phone-screen .app-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+</style>
+
+<script>
+    // Add this script to enhance the phone screen appearance
+    document.addEventListener('DOMContentLoaded', function() {
+        // Enhance phone screen with more realistic app interface
+        const phoneScreen = document.querySelector('.phone-screen');
+        if (phoneScreen && !phoneScreen.querySelector('.app-icon')) {
+            phoneScreen.innerHTML = `
+                <div class="app-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div style="font-size: 24px; font-weight: 700; margin-bottom: 10px;">KitchenHub</div>
+                <div style="font-size: 14px; opacity: 0.9; margin-bottom: 20px;">Cook Like A Pro</div>
+                <div style="font-size: 12px; opacity: 0.7;">Tap to explore recipes</div>
+            `;
+        }
+    });
+</script>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Everything You Need to Cook Like a Pro</h2>
+                <p>Professional tools and features designed for home cooks</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Recipe Library</h3>
+                    <p>Access our extensive collection of professionally developed recipes with step-by-step instructions and high-quality photography</p>
+                    <a href="/recipes" class="feature-link">Explore Recipes <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Smart Shopping</h3>
+                    <p>Generate automated shopping lists from your saved recipes and organize ingredients by store sections for efficient shopping</p>
+                    <a href="/shopping" class="feature-link">Create List <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Meal Planning</h3>
+                    <p>Plan your weekly meals with our intelligent system that suggests recipes based on your preferences and dietary requirements</p>
+                    <a href="#" class="feature-link">Start Planning <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Section -->
+    <section class="app-section">
+        <div class="container app-container">
+            <div class="app-content">
+                <h2>Get the KitchenHub Mobile App</h2>
+                <p>Take your cooking to the next level with our powerful mobile application. Access your recipes, shopping lists, and cooking tools wherever you go, with seamless synchronization across all your devices.</p>
+                
+                <div class="app-features">
+                    <div class="app-feature">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Optimized for mobile cooking</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-voice"></i>
+                        <span>Hands-free voice instructions</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-barcode"></i>
+                        <span>Barcode shopping list scanning</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Real-time sync across devices</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-download"></i>
+                        <span>Offline recipe access</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Cooking timers and alerts</span>
+                    </div>
+                </div>
+
+                <div class="app-buttons">
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-apple"></i>
+                        <div class="app-btn-text">
+                            <small>Download on the</small>
+                            <div>App Store</div>
+                        </div>
+                    </a>
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-google-play"></i>
+                        <div class="app-btn-text">
+                            <small>Get it on</small>
+                            <div>Google Play</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="app-image">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <img src="https://images.unsplash.com/photo-1556910633-50933745c1fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="KitchenHub Mobile App">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section class="recipes">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Recipes</h2>
+                <p>Handpicked recipes loved by our community of home cooks</p>
+            </div>
+            <div class="recipes-grid">
+                <div class="recipe-card">
+                    <div class="recipe-img" style="background-image: url('https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                        <div class="recipe-time">
+                            <i class="fas fa-clock"></i> 45 min
+                        </div>
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Jollof Rice with Grilled Chicken</h3>
+                        <p>A West African classic featuring aromatic rice cooked in rich tomato sauce with perfectly grilled chicken and traditional spices</p>
+                        <a href="/recipe/1" class="view-recipe">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-img" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                        <div class="recipe-time">
+                            <i class="fas fa-clock"></i> 30 min
+                        </div>
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Creamy Pasta Carbonara</h3>
+                        <p>Authentic Italian pasta with creamy egg sauce, crispy pancetta, and aged Parmesan cheese - ready in just 30 minutes</p>
+                        <a href="/recipe/2" class="view-recipe">View Recipe</a>
+                    </div>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-img" style="background-image: url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                        <div class="recipe-time">
+                            <i class="fas fa-clock"></i> 25 min
+                        </div>
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Herb-Crusted Salmon</h3>
+                        <p>Perfectly cooked salmon fillet with a crispy herb crust, served with lemon butter sauce and seasonal roasted vegetables</p>
+                        <a href="/recipe/3" class="view-recipe">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How KitchenHub Works</h2>
+                <p>Simple steps to transform your cooking experience</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Discover Recipes</h3>
+                    <p>Browse our extensive recipe collection or use smart search to find dishes based on ingredients, cooking time, or dietary preferences</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                    <h3>Plan & Organize</h3>
+                    <p>Create shopping lists automatically from your chosen recipes and organize ingredients by store sections for efficient shopping</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Cook with Confidence</h3>
+                    <p>Follow step-by-step instructions with built-in timers, measurement conversions, and pro tips to ensure perfect results every time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Start Your Cooking Journey Today</h2>
+            <p>Join over 50,000 home cooks who have transformed their kitchen experience with KitchenHub. Create amazing meals, save time, and cook with confidence.</p>
+            <a href="/register" class="btn btn-primary btn-large">
+                <i class="fas fa-user-plus"></i> Create Your Free Account
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>KitchenHub</h3>
+                    <p style="color: #bdc3c7; line-height: 1.6;">Your ultimate cooking companion. Professional tools and features designed to help home cooks create amazing meals with confidence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Recipes</a></li>
+                        <li><a href="#">Meal Plans</a></li>
+                        <li><a href="#">Shopping Lists</a></li>
+                        <li><a href="#">Cooking Tips</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Recipe Finder</a></li>
+                        <li><a href="#">Meal Planner</a></li>
+                        <li><a href="#">Shopping Lists</a></li>
+                        <li><a href="#">Cooking Timer</a></li>
+                        <li><a href="#">Nutrition Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Kitchen Street, Food City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> hello@kitchenhub.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 KitchenHub. All rights reserved. | Professional Cooking Tools for Home Chefs</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchButton = document.querySelector('.search-box button');
+            searchButton.addEventListener('click', function() {
+                const searchTerm = document.querySelector('.search-box input').value;
+                if (searchTerm) {
+                    window.location.href = `/recipes?search=${encodeURIComponent(searchTerm)}`;
+                }
+            });
+
+            // Enter key support for search
+            document.querySelector('.search-box input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+
+            // Recipe card clicks
+            const recipeCards = document.querySelectorAll('.recipe-card');
+            recipeCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const recipeLink = this.querySelector('.view-recipe').href;
+                    window.location.href = recipeLink;
+                });
+            });
+
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe feature cards
+            document.querySelectorAll('.feature-card, .step, .recipe-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        });

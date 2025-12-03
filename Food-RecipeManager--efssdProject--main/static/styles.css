@@ -1,0 +1,412 @@
+
+
+/* ========================================
+   GENERAL STYLES - Applies to whole website
+   ======================================== */
+
+/* This changes the default font for everything on the page */
+body {
+    font-family: 'Poppins', sans-serif; /* Poppins is a modern, clean font from Google */
+    background-color: #f8f9fa; /* Light gray background - looks professional */
+    min-height: 100vh; /* Makes sure body is at least full screen height */
+}
+
+/* Make sure footer stays at bottom even on short pages */
+html {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Smooth scrolling when clicking on links */
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* ========================================
+   NAVIGATION BAR CUSTOMIZATION
+   ======================================== */
+
+/* Make the navbar stand out with a gradient */
+.navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    /* linear-gradient creates a smooth color transition from purple to deeper purple */
+    /* !important means this overrides Bootstrap's default styles */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Adds subtle shadow under navbar */
+    padding: 1rem 0; /* Adds vertical spacing */
+} 
+
+/* Make brand/logo bigger and bolder */
+.navbar-brand {
+    font-size: 1.5rem; /* 1.5 times the default text size */
+    font-weight: 700; /* Makes it bold (normal is 400, bold is 700) */
+    letter-spacing: 1px; /* Adds tiny space between letters for style */
+}
+
+/* Add hover effect to navigation links */
+.nav-link {
+    transition: all 0.3s ease; /* Smooth animation that takes 0.3 seconds */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 5px; /* Space between links */
+}
+
+/* When you hover over a nav link, it lights up! */
+.nav-link:hover {
+    background-color: rgba(255,255,255,0.2); /* Semi-transparent white */
+    transform: translateY(-2px); /* Moves link up slightly */
+}
+
+/* ========================================
+   HERO SECTION - Big banner on homepage
+   ======================================== */
+
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white; /* White text */
+    padding: 100px 0 80px; /* Top, sides, bottom padding */
+    text-align: center; /* Centers all text */
+    margin-top: 56px; /* Pushes content below fixed navbar */
+}
+
+.hero-section h1 {
+    font-size: 3.5rem; /* Really big heading! rem is relative to root font size */
+    font-weight: 700; /* Extra bold */
+    margin-bottom: 20px; /* Space below heading */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Adds shadow behind text for depth */
+}
+
+.hero-section p {
+    font-size: 1.3rem; /* Bigger than normal paragraph text */
+    margin-bottom: 30px; /* Space below paragraph */
+}
+
+/* Style the call-to-action buttons */
+.hero-section .btn {
+    margin: 10px; /* Space around buttons */
+    padding: 12px 30px; /* Makes buttons bigger (vertical, horizontal) */
+    font-size: 1.1rem; /* Slightly bigger text */
+    border-radius: 50px; /* Makes buttons very rounded/pill-shaped */
+    transition: transform 0.3s ease; /* Smooth animation */
+}
+
+/* Buttons grow when you hover over them! */
+.hero-section .btn:hover {
+    transform: scale(1.05); /* Makes button 5% bigger */
+}
+
+
+/* ========================================
+   RECIPE CARDS - The boxes showing recipes
+   ======================================== */
+
+.recipe-card {
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Shadow makes card "float" */
+    transition: all 0.3s ease; /* Smooth animation */
+    overflow: hidden; /* Hides anything that goes outside card */
+    height: 100%; /* Makes all cards same height */
+    background: white; /* White background */
+}
+
+/* When you hover over a card, it lifts up! */
+.recipe-card:hover {
+    transform: translateY(-10px); /* Moves card up 10 pixels */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Bigger shadow when hovering */
+}
+
+/* Recipe image inside the card */
+.recipe-card img {
+    width: 100%; /* Image fills card width */
+    height: 250px; /* Fixed height so all images are same size */
+    object-fit: cover; /* Crops image nicely to fit the space */
+}
+
+/* The text content area of the card */
+.recipe-card .card-body {
+    padding: 20px; /* Space inside the card */
+}
+
+/* Recipe title */
+.recipe-card .card-title {
+    font-size: 1.4rem; /* Big title */
+    font-weight: 600; /* Semi-bold */
+    color: #333; /* Dark gray - easier to read than pure black */
+    margin-bottom: 10px; /* Space below title */
+}
+
+/* Recipe description text */
+.recipe-card .card-text {
+    color: #666; /* Medium gray */
+    font-size: 0.95rem; /* Slightly smaller than normal */
+    margin-bottom: 15px; /* Space below text */
+}
+
+
+/* ========================================
+   BADGES - Small labels for difficulty, time, etc.
+   ======================================== */
+
+.badge {
+    padding: 8px 15px; /* Makes badges bigger */
+    border-radius: 20px; /* Very rounded edges */
+    font-size: 0.85rem; /* Slightly smaller text */
+    font-weight: 500; /* Medium weight */
+}
+
+/* Different colors for different difficulty levels */
+.badge-easy {
+    background-color: #28a745; /* Green for easy */
+    color: white;
+}
+
+.badge-medium {
+    background-color: #ffc107; /* Yellow/orange for medium */
+    color: #333; /* Dark text for contrast */
+}
+
+.badge-hard {
+    background-color: #dc3545; /* Red for hard */
+    color: white;
+}
+
+
+/* ========================================
+   FORMS - Input boxes, textareas, buttons
+   ======================================== */
+
+/* Style all input fields and textareas */
+.form-control, .form-select {
+    border-radius: 10px; /* Rounded corners */
+    padding: 12px; /* More space inside inputs */
+    border: 2px solid #e0e0e0; /* Light gray border */
+    transition: all 0.3s ease; /* Smooth animation */
+}
+
+/* When you click/focus on an input, it changes color */
+.form-control:focus, .form-select:focus {
+    border-color: #667eea; /* Purple border */
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25); /* Glowing effect */
+}
+
+/* Form labels */
+.form-label {
+    font-weight: 600; /* Bold labels */
+    color: #333; /* Dark gray */
+    margin-bottom: 8px; /* Space below label */
+}
+
+
+/* ========================================
+   BUTTONS - Make buttons look professional
+   ======================================== */
+
+.btn {
+    border-radius: 8px; /* Slightly rounded corners */
+    padding: 10px 25px; /* Space inside button */
+    font-weight: 500; /* Medium bold */
+    transition: all 0.3s ease; /* Smooth animation */
+}
+
+/* Primary button (main action button) */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none; /* Remove border */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    /* Gradient reverses on hover for cool effect */
+    transform: translateY(-2px); /* Lifts up slightly */
+}
+
+/* Success button (green) */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   SECTION HEADINGS
+   ======================================== */
+
+.section-title {
+    font-size: 2.5rem; /* Big heading */
+    font-weight: 700; /* Very bold */
+    color: #333; /* Dark gray */
+    margin-bottom: 40px; /* Lots of space below */
+    position: relative; /* Needed for the decorative line */
+    padding-bottom: 15px; /* Space for the line */
+}
+
+/* Decorative line under section titles */
+.section-title::after {
+    content: ''; /* Empty content - just creates the element */
+    position: absolute; /* Positioned relative to the title */
+    bottom: 0; /* At the bottom of title */
+    left: 50%; /* Start from center */
+    transform: translateX(-50%); /* Center the line perfectly */
+    width: 100px; /* Line is 100 pixels wide */
+    height: 4px; /* Line thickness */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Gradient colored line */
+    border-radius: 2px; /* Rounded ends */
+}
+
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    margin-top: auto; /* Pushes footer to bottom */
+}
+
+.footer a {
+    text-decoration: none; /* Removes underline from links */
+    transition: opacity 0.3s ease; /* Smooth fade effect */
+}
+
+.footer a:hover {
+    opacity: 0.8; /* Makes link slightly transparent on hover */
+}
+
+
+/* ========================================
+   YOUTUBE VIDEO CONTAINER
+   ======================================== */
+
+.video-container {
+    position: relative; /* Needed for responsive aspect ratio */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (9/16 = 0.5625 = 56.25%) */
+    height: 0; /* Height controlled by padding */
+    overflow: hidden; /* Hides overflow */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Shadow for depth */
+}
+
+.video-container iframe {
+    position: absolute; /* Takes it out of normal flow */
+    top: 0; /* Positions at top */
+    left: 0; /* Positions at left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    border: none; /* No border */
+}
+
+
+/* ========================================
+   RECIPE DETAIL PAGE
+   ======================================== */
+
+.recipe-detail-img {
+    width: 100%; /* Full width */
+    height: 400px; /* Fixed height */
+    object-fit: cover; /* Crops image nicely */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15); /* Shadow */
+    margin-bottom: 30px; /* Space below image */
+}
+
+/* Recipe info boxes (prep time, servings, etc.) */
+.recipe-info-box {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 20px; /* Space inside */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center the text */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Subtle shadow */
+}
+
+.recipe-info-box i {
+    font-size: 2rem; /* Big icons */
+    color: #667eea; /* Purple color */
+    margin-bottom: 10px; /* Space below icon */
+}
+
+/* Lists in recipe (ingredients, instructions) */
+.recipe-list {
+    list-style: none; /* Removes default bullets */
+    padding-left: 0; /* Removes left padding */
+}
+
+.recipe-list li {
+    padding: 12px 15px; /* Space inside each item */
+    margin-bottom: 10px; /* Space between items */
+    background-color: #f8f9fa; /* Light gray */
+    border-left: 4px solid #667eea; /* Purple left border */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth animation */
+}
+
+.recipe-list li:hover {
+    background-color: #e9ecef; /* Slightly darker on hover */
+    transform: translateX(5px); /* Moves item right slightly */
+}
+
+
+/* ========================================
+   SHOPPING LIST
+   ======================================== */
+
+.shopping-item {
+    display: flex; /* Flexbox for layout */
+    align-items: center; /* Vertically centers items */
+    padding: 15px; /* Space inside */
+    background-color: white; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 15px; /* Space between items */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Shadow */
+    transition: all 0.3s ease; /* Smooth animation */
+}
+
+.shopping-item:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* Bigger shadow on hover */
+}
+
+/* Completed/checked items look different */
+.shopping-item.completed {
+    opacity: 0.6; /* Makes it faded/transparent */
+    text-decoration: line-through; /* Strikes through the text */
+}
+
+
+/* ========================================
+   RESPONSIVE DESIGN - Makes site look good on phones/tablets
+   ======================================== */
+
+/* For tablets and smaller */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem; /* Smaller heading on small screens */
+    }
+    
+    .hero-section p {
+        font-size: 1.1rem; /* Smaller text */
+    }
+    
+    .section-title {
+        font-size: 2rem; /* Smaller title */
+    }
+}
+
+/* For phones */
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 60px 0 40px; /* Less padding on small screens */
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem; /* Even smaller */
+    }
+    
+    .recipe-card img {
+        height: 200px; /* Shorter images on phones */
+    }
+}
