@@ -15,7 +15,9 @@ body {
 }
 
 .custom-nav {
-    background-color: #566246;
+    background: linear-gradient(135deg, #566246 0%, #a4c2a5 100%) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1rem 0;
 }
 
 /* Sidebar */
