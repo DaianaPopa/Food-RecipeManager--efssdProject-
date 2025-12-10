@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Update Recipe</h1>
+<hr>
+<form method="POST" action="/update/{{ recipe.id }}">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ recipe.title }}" required>
+    </div>
+    <div class="form-group">
+        <label for="prep_time">Preparation Time (minutes)</label>
+        <input type="number" class="form-control" id="prep_time" name="prep_time" value="{{ recipe.prep_time }}" required>
+    </div>
+    <div class="form-group">
+        <label for="cook_time">Cook Time</label>
+        <input type="number" class="form-control" id="cook_time" name="cook_time" value="{{ recipe.cook_time }}" required>
+    </div>
+    <div class="form-group">
+        <label for="cuisine">Cuisine</label>
+        <input type="text" class="form-control" id="cuisine" name="cuisine" value="{{ recipe.cuisine }}" required>
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <input type="number" class="form-control" id="rating" name="rating" value="{{ recipe.rating }}" required>
+    </div>
+    <div class="form-group">
+        <label for="review">Review</label>
+        <input type="text" class="form-control" id="review" name="review" value="{{ recipe.review }}" required>
+    </div>
+    <div class="form-group">
+        <label for="ingredients">Ingredients</label>
+        <input type="text" class="form-control" id="ingredients" name="ingredients" value="{{ recipe.ingredients }}" required>
+    </div>
+    <div class="col-12 mt-0">
+        <label for="poster">Poster</label>
+        <input type="poster" type="file" accept="image/*" class="form-control" id="poster" name="poster" value="{{ recipe.poster }}">
+    </div>
+    <button type="submit" class="btn green-btn">Update Recipe</button>
+</form>
+{% endblock %}
