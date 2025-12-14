@@ -206,6 +206,16 @@ def delete(id):
     return redirect(url_for('recipes'))
 
 
+@app.route('/test-recipes')
+def test_recipes():
+    from db.db import get_all_recipes
+    recipes = get_all_recipes()
+    output = "<h1>Recipes Test</h1>"
+    for recipe in recipes:
+        output += f"<p><strong>Name:</strong> {recipe['name']}<br>"
+        output += f"<strong>Poster:</strong> {recipe['poster']}<br><br></p>"
+    return output
+
 # RUN APP
 if __name__ == '__main__':
     print("Starting Flask application...")
