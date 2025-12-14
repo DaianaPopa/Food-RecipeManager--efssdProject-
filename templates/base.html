@@ -20,19 +20,26 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark custom-nav">
         <div class="container-fluid">
+
+            <!-- Logo and brand name grouped together -->
+            <div class="d-flex align-items-center"></div>
             <img src="{{ url_for('static', filename='uploads/logo.png')}}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"> <!-- Logo Image. Found from Google Images https://cdn-icons-png.flaticon.com/512/1869/1869042.png -->
             <a class="navbar-brand" href="#">{{ siteName }}</a>
+             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!-- Navigation links - collapsible on mobile -->
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                     <a class="nav-link" href="/about">About</a>
                     
+                     <!-- Show different links based on login status -->
                      {% if session['user_id'] %}
                         <a class="nav-link" href="/recipes">Recipes</a>
+                         <a class="nav-link" href="/shoppingList">Shopping List</a>
                         <a class="nav-link" href="/logout">Logout</a>
                     {% else %}
                         <a class="nav-link" href="/register">Register</a>
@@ -40,8 +47,9 @@
                     {% endif %}
                 </div>
             </div>
+            <!-- Search form - aligned to the right -->
             <form class="form-inline my-2 my-lg-0 d-flex">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                 <input class="form-control me-2 search-input" type="search" placeholder="Search recipes..." aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
