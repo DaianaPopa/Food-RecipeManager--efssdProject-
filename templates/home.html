@@ -154,5 +154,41 @@
             </div>
         
         <div class="row g-3 mb-3">
-
+        <!-- Guide card 2 -->
+            <div class="col-md-4">
+                <div class="card" style="background-color: #fff9f0; border-left: 4px solid #f7941d; padding: 20px;">
+                    <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 10px;">
+                        <a href="/recipes" style="color: #c8102e; text-decoration: none;">Browse All Recipes</a>
+                    </h5>
+                    <p style="color: #2d2926; font-size: 0.95rem; margin-bottom: 0;">
+                        Explore our full collection of delicious recipes for every occasion.
+                    </p>
+                </div>
+            </div>
+        <!-- Guide card 3 -->
+            <div class="col-md-4">
+                <div class="card" style="background-color: #fff9f0; border-left: 4px solid #f7941d; padding: 20px;">
+                    <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 10px;">
+                        {% if session['user_id'] %}
+                            <a href="/create" style="color: #c8102e; text-decoration: none;">Add Your Recipe</a>
+                        {% else %}
+                            <a href="/register" style="color: #c8102e; text-decoration: none;">Join KitchenHub</a>
+                        {% endif %}
+                    </h5>
+                    <p style="color: #2d2926; font-size: 0.95rem; margin-bottom: 0;">
+                        {% if session['user_id'] %}
+                            Share your favorite recipes with the community.
+                        {% else %}
+                            Create a free account to save and share your favorite recipes.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <a href="/about" style="color: #f7941d; font-weight: 600; font-size: 1rem; text-decoration: none;">
+            Discover more &gt;
+        </a>
+    </div>
 {% endblock %}
