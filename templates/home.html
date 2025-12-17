@@ -30,11 +30,105 @@
             Perfect for busy weeknights when you need something delicious on the table fast.
         </p>
 
-    <div class="lead mb-4"style="background-color: #fff4e6; border: 2px solid #ffa726; border-radius: 10px;">
-        <div class="card-body p-4">
-            <h3 class="text-center mb-3" style="color: #e65100;">What is KitchenHub?</h3>
-        <p class="lead text-center" style="line-height: 1.8; color: #5d4037;">
-          Welcome to <strong>KitchenHub</strong>. Here, we share simple and delicious recipes for you to make. Our goal is to make cooking easy, fun, and accessible with dishes you can trust and love.</p>
+        <!-- Recipe grid - 3 columns -->
+        <div class="row g-4 mb-3">
+            
+            <!-- Recipe 1 -->
+            <div class="col-md-4">
+                <div class="card h-100" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                    <img src="/static/uploads/salmon_pasta.jpg" class="card-img-top" alt="Salmon Pasta" style="height: 200px; object-fit: cover;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 0;">
+                            <a href="/recipes" style="color: #c8102e; text-decoration: none;">Salmon Pasta</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+                 <!-- Recipe 2 -->
+            <div class="col-md-4">
+                <div class="card h-100" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                    <img src="/static/uploads/tortilla_pizza.jpg" class="card-img-top" alt="Tortilla Pizza" style="height: 200px; object-fit: cover;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 0;">
+                            <a href="/recipes" style="color: #c8102e; text-decoration: none;">Tortilla Pizza</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recipe 3 -->
+            <div class="col-md-4">
+                <div class="card h-100" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                    <img src="/static/uploads/steak_fajitas.jpg" class="card-img-top" alt="Steak Fajitas" style="height: 200px; object-fit: cover;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 0;">
+                            <a href="/recipes" style="color: #c8102e; text-decoration: none;">Steak Fajitas</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
         </div>
+        
+        <!-- Discover more link -->
+        <a href="/recipes" style="color: #f7941d; font-weight: 600; font-size: 1rem; text-decoration: none;">
+            Discover more &gt;
+        </a>
     </div>
+
+<hr style="border-top: 2px solid #e0e0e0; margin-bottom: 40px;">
+
+    <!-- SECTION 2: Family Favorites -->
+    <div class="mb-5">
+        <h2 style="color: #c8102e; font-weight: bold; font-size: 1.8rem; margin-bottom: 10px;">
+            Family Favorites
+        </h2>
+        <p style="color: #2d2926; margin-bottom: 25px;">
+            Hearty, comforting meals that everyone at the table will love.
+        </p>
+        
+        <div class="row g-4 mb-3">
+            
+            <div class="col-md-4">
+                <div class="card h-100" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                    <img src="/static/uploads/spaghetti_bolognese.jpg" class="card-img-top" alt="Spaghetti Bolognese" style="height: 200px; object-fit: cover;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 0;">
+                            <a href="/recipes" style="color: #c8102e; text-decoration: none;">Spaghetti Bolognese</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                    <img src="/static/uploads/cowboy_pie.jpg" class="card-img-top" alt="Cowboy Pie" style="height: 200px; object-fit: cover;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 0;">
+                            <a href="/recipes" style="color: #c8102e; text-decoration: none;">Cowboy Pie</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100" style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                    <img src="/static/uploads/sausage_ragu.jpg" class="card-img-top" alt="Sausage Ragu" style="height: 200px; object-fit: cover;">
+                    <div class="card-body" style="padding: 20px;">
+                        <h5 style="color: #c8102e; font-weight: bold; margin-bottom: 0;">
+                            <a href="/recipes" style="color: #c8102e; text-decoration: none;">Sausage Ragu</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <a href="/recipes" style="color: #f7941d; font-weight: 600; font-size: 1rem; text-decoration: none;">
+            Discover more &gt;
+        </a>
+    </div>
+
+    <hr style="border-top: 2px solid #e0e0e0; margin-bottom: 40px;">
+
 {% endblock %}
