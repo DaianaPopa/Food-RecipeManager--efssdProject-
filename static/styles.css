@@ -18,7 +18,7 @@ body {
 
 /* Navigation bar - warm red to orange gradient */
 .custom-nav {
-    background: linear-gradient(135deg, #c8102e 0%, #f7941d 100%) !important;
+    background: linear-gradient(135deg, #566246 0%, #a4c2a5 100%) !important;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     padding: 1rem 0;
 }
@@ -32,7 +32,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-    color: #fff4e6 !important;
+    color: #ffffff !important;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
 }
@@ -53,29 +53,29 @@ body {
 
 .btn-outline-light:hover {
     background-color: #ffffff;
-    color: #c8102e;
+    color: #566246;
 }
 
 /* Sidebar */
 #sidebar {
-    background-color: #fff9f0;
+    background-color: #f1f2eb;
     padding: 25px;
     border-radius: 0 12px 12px 0;
     margin-top: 20px;
-    border-left: 4px solid #f7941d;
+    border-left: 4px solid #a4c2a5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Sidebar cards */
 #sidebar .card {
     background-color: #ffffff;
-    border: 2px solid #f7941d;
+    border: 2px solid #a4c2a5;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
 #sidebar .card-header {
-    background: linear-gradient(135deg, #c8102e 0%, #f7941d 100%);
+    background: linear-gradient(135deg, #566246 0%, #a4c2a5 100%);
     color: #ffffff;
     font-weight: bold;
     border-bottom: none;
@@ -87,25 +87,36 @@ body {
 
 /* Primary buttons */
 .green-btn, .btn-primary {
-    background: linear-gradient(135deg, #c8102e 0%, #d32f2f 100%);
+    background: linear-gradient(135deg, #566246 0%, #a4c2a5 100%);
     color: white;
     border: none;
     padding: 10px 25px;
     font-weight: 600;
     border-radius: 6px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(200, 16, 46, 0.3);
-}
-.green-btn .btn-primary:hover {
-    background-color: linear-gradient(135deg, #a00d24 0%, #b71c1c 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(200, 16, 46, 0.4);
-    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Secondary buttons - orange theme */
+.btn-danger {
+    background: linear-gradient(135deg, #c8102e 0%, #cd5166 100%);
+    padding: 10px 25px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.green-btn .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+/* Secondary buttons */
 .btn-secondary {
-    background: linear-gradient(135deg, #f7941d 0%, #ff9800 100%);
+    background: linear-gradient(135deg, #566246 0%, #a4c2a5 100%);
     color: white;
     border: none;
     padding: 10px 25px;
@@ -115,9 +126,8 @@ body {
 }
 
 .btn-secondary:hover {
-    background: linear-gradient(135deg, #e67e22 0%, #f57c00 100%);
     transform: translateY(-2px);
-    color: white;
+    color: black;
 }
 
 /* Alert messages*/
@@ -148,15 +158,15 @@ body {
 }
 
 .alert-info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border-left: 4px solid #17a2b8;
+   background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
 }
 
 /* Cards - general styling */
 .card {
     border-radius: 10px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #dad8d3;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     margin-bottom: 20px;
@@ -168,21 +178,21 @@ body {
 }
 
 .card-title {
-    color: #c8102e;
+    color: #566246;
     font-weight: bold;
 }
 
 /* Form inputs */
 .form-control {
-    border: 2px solid #e0e0e0;
+    border: 2px solid #dad8d3;
     border-radius: 6px;
     padding: 10px 15px;
     transition: all 0.3s ease;
 }
 
 .form-control:focus {
-    border-color: #f7941d;
-    box-shadow: 0 0 0 0.2rem rgba(247, 148, 29, 0.25);
+    border-color: #a4c2a5;
+    box-shadow: #d8dad3 0 0 5px;
 }
 
 /* No Border Radius for Main Content and Sidebar on Mobile */
@@ -194,12 +204,12 @@ body {
 
 /* Footer */
 footer {
-    color: #faf7f2;
+    color: #ffffff;
     width: 100%;
     padding: 20px 0;
     margin-top: 50px;
     text-align: center;
     font-weight: 500;
-    background: linear-gradient(135deg, #2d2926 0%, #5c3317 100%);
+    background: #4a4a48;
 
 }

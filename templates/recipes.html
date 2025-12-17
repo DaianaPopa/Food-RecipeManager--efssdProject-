@@ -17,11 +17,11 @@
         
         <!-- Call to action buttons -->
             {% if session['user_id'] %}
-                <a href="/recipes" class="btn btn-light btn-lg me-2" style="font-weight: 600; color: #c8102e; padding: 12px 30px;">Browse All Recipes</a>
-                <a href="/create" class="btn btn-lg me-2" style="font-weight: 600; background-color: #f7941d; color: white; padding: 12px 30px; border: none;">Add New Recipe</a>
+                <a href="/recipes" class="btn btn-light btn-lg me-2" style="font-weight: 600; color: #566246; padding: 12px 30px;">Browse All Recipes</a>
+                <a href="/create" class="btn btn-lg me-2" style="font-weight: 600; background-color: #a4c2a5; color: white; padding: 12px 30px; border: none;">Add New Recipe</a>
             {% else %}
-                <a href="/register" class="btn btn-light btn-lg me-2" style="font-weight: 600; color: #c8102e; padding: 12px 30px;">Get Started Free</a>
-                <a href="/login" class="btn btn-lg" style="font-weight: 600; background-color: #f7941d; color: white; padding: 12px 30px; border: none;">Sign In</a>
+                <a href="/register" class="btn btn-light btn-lg me-2" style="font-weight: 600; color: #566246; padding: 12px 30px;">Get Started Free</a>
+                <a href="/login" class="btn btn-lg" style="font-weight: 600; background-color: #a4c2a5; color: white; padding: 12px 30px; border: none;">Sign In</a>
             {% endif %}
         </div>
     </div>
