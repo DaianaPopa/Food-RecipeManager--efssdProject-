@@ -48,8 +48,8 @@
                 </div>
             </div>
             <!-- Search form - aligned to the right -->
-            <form class="form-inline my-2 my-lg-0 d-flex">
-                 <input class="form-control me-2 search-input" type="search" placeholder="Search recipes..." aria-label="Search">
+            <form class="form-inline my-2 my-lg-0 d-flex" action="{{ url_for('search') }}" method="GET">
+                 <input class="form-control me-2 search-input" type="search" name="q" placeholder="Search recipes..." aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>

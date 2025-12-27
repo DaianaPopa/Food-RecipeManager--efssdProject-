@@ -156,3 +156,20 @@ def delete_recipe_ingredients(recipe_id):
     conn.execute("DELETE FROM ingredients WHERE recipe_id=?", (recipe_id,))
     conn.commit()
     conn.close()
+
+def search_recipes(search_term):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Perform case-insensitive search
+    sql = """
+        SELECT id, name, poster
+        FROM recipes
+        WHERE LOWER(name) LIKE ?
+    """
+    # Allows partial matches
+    cursor.execute(sql, (f"%{search_term.lower()}%",))
+    results = cursor.fetchall()
+
+    conn.close()
+    return results
