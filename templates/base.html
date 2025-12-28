@@ -35,11 +35,11 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                     <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="/recipes">Recipes</a>
+                    <a class="nav-link" href="/shoppingList">Shopping List</a>
                     
                      <!-- Show different links based on login status -->
                      {% if session['user_id'] %}
-                        <a class="nav-link" href="/recipes">Recipes</a>
-                         <a class="nav-link" href="/shoppingList">Shopping List</a>
                         <a class="nav-link" href="/logout">Logout</a>
                     {% else %}
                         <a class="nav-link" href="/register">Register</a>

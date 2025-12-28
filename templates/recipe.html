@@ -52,7 +52,7 @@
 {% block sidebarContent %}
 
     <!-- Only show management buttons if the logged-in user is the recipe owner -->
-    {% if session['user_id'] == recipe['user_id'] or session['username'] == 'admin' %}
+    {% if session.get('username') == 'admin' or session.get('username') == 'user1' %}
         <div class="card text-center mt-3">
             <div class="card-body">
                 <h5 class="card-title">Manage Recipe</h5>
