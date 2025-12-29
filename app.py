@@ -35,6 +35,25 @@ def home():
 def about():
     return render_template('about.html', title="About KitchenHub")
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    # Only allow access if user is logged in
+    if 'user_id' not in session:
+        flash("You need to log in to access the Contact page.", "warning")
+        return redirect(url_for('login'))
+    
+    if request.method == 'POST':
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        
+        # Here you can save to database or send an email
+        flash("Your message has been sent successfully!", "success")
+        return redirect(url_for('contact'))
+    
+    return render_template('contact.html', title="Contact Us")
+
 
 # REGISTER
 @app.route('/register/', methods=('GET', 'POST'))
