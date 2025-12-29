@@ -9,4 +9,83 @@
     <p>It is designed to make users file easier, by giving ideas and instruction how to do different recipes.</p>
     <p>This app is made with framework that include Python Flask for the back-end and Bootstrap for the front-end with HTML and CSS.</p>
 
+
+<!-- Technology Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #566246;">Built With</h2>
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 style="color: #566246;">Python & Flask</h5>
+                        <p>Back-end framework powering the application.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 style="color: #566246;">Bootstrap 5</h5>
+                        <p>Responsive front-end framework for modern layouts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 style="color: #566246;">HTML & CSS</h5>
+                        <p>Markup and styling for beautiful, clean interfaces.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #566246;">Meet the Team</h2>
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ url_for('static', filename='uploads/Emoji-Chef.png') }}" class="card-img-top" alt="Joshua">
+                    <div class="card-body">
+                        <h5 style="color: #566246;">Joshua</h5>
+                        <p class="card-text text-muted">Full stuck developer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ url_for('static', filename='uploads/Emoji-Chef.png') }}" class="card-img-top" alt="Amaan">
+                    <div class="card-body">
+                        <h5 style="color: #566246;">Amaan</h5>
+                        <p class="card-text text-muted">Full stuck developer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ url_for('static', filename='uploads/Emoji-Chef.png') }}" class="card-img-top" alt="Daiana">
+                    <div class="card-body">
+                        <h5 style="color: #566246;">Daiana</h5>
+                        <p class="card-text text-muted">Full stack developer</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}
