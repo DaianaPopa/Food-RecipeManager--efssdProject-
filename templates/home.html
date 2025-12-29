@@ -1,17 +1,69 @@
-<!-- This tag indicates that this file extends the base template -->
 {% extends "base.html" %}
-
-<!-- This block named ‘content’ allows us to define html that can be inserted into the base template block with the same name -->
 {% block content %}
 
+<div class="d-flex flex-column align-items-center text-center">
 
-<!-- This is the template contents that will be inserted into the {block} 'content' in base.html
- Welcome paragraph  -->
-    <div class="lead mb-4"style="background-color: #f1f2eb; border: 2px solid #566246; border-radius: 10px;">
+    <!-- Welcome Card -->
+    <div class="card mb-4 shadow-sm" style="background-color: #f1f2eb; border: 2px solid #566246; max-width: 800px; width: 100%;">
         <div class="card-body p-4">
-            <h3 class="text-center mb-3" style="color: #4a4a48;">What is KitchenHub?</h3>
-        <p class="lead text-center" style="line-height: 1.8; color: #4a4a48;">
-          Welcome to <strong>KitchenHub</strong>. Here, we share simple and delicious recipes for you to make. Our goal is to make cooking easy, fun, and accessible with dishes you can trust and love.</p>
+            <h1 class="mb-3" style="color: #566246;">Welcome to KitchenHub 🍽️</h1>
+            <p class="lead" style="color: #4a4a48;">
+                Simple, delicious recipes made for everyday cooking.
+            </p>
+            <a href="/recipes" class="btn green-btn btn-lg mt-2">Browse Recipes</a>
         </div>
     </div>
+
+    <!-- Cooking Video -->
+    <div class="card mb-4 shadow-sm" style="max-width: 800px; width: 100%;">
+        <div class="card-body p-4">
+            <h3 class="mb-3">Watch a Recipe in Action 🎬</h3>
+            <p class="text-muted mb-4">Follow along with one of our easy recipes and see how simple cooking can be.</p>
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/pq3Otf0zbdk" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="card mb-4" style="max-width: 800px; width: 100%;">
+        <div class="card-body p-4">
+            <h3 class="mb-3" style="color: #566246;">What is KitchenHub?</h3>
+            <p class="lead" style="line-height: 1.8; color: #4a4a48;">
+                KitchenHub is a platform designed to make cooking easy, enjoyable, and accessible.
+                We provide clear instructions, everyday ingredients, and recipes you can trust.
+            </p>
+        </div>
+    </div>
+
+    <!-- Feature Highlights -->
+    <div class="row text-center" style="max-width: 800px; width: 100%;">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 style="color: #566246;">🥗 Easy Recipes</h5>
+                    <p class="card-text">Beginner-friendly steps anyone can follow.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 style="color: #566246;">⏱️ Quick Meals</h5>
+                    <p class="card-text">Perfect for busy schedules and weeknights.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 style="color: #566246;">🛒 Smart Planning</h5>
+                    <p class="card-text">Create shopping lists directly from recipes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

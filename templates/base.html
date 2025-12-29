@@ -9,10 +9,11 @@
     <!-- Bootstrap 5 CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">  <!-- for footer -->
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='uploads/logo.png')}}"> <!-- Logo Image. Found from Google Images https://cdn-icons-png.flaticon.com/512/1869/1869042.png -->
-
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='/uploads/logo.png') }}">
 </head>
 
 <body>
@@ -21,16 +22,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark custom-nav">
         <div class="container-fluid">
 
-            <!-- Logo and brand name grouped together -->
             <div class="d-flex align-items-center"></div>
-            <img src="{{ url_for('static', filename='uploads/logo.png')}}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"> <!-- Logo Image. Found from Google Images https://cdn-icons-png.flaticon.com/512/1869/1869042.png -->
+            <img src="{{ url_for('static', filename='uploads/logo.png')}}" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
             <a class="navbar-brand" href="#">{{ siteName }}</a>
              
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Navigation links - collapsible on mobile -->
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
@@ -38,7 +38,6 @@
                     <a class="nav-link" href="/recipes">Recipes</a>
                     <a class="nav-link" href="/shoppingList">Shopping List</a>
                     
-                     <!-- Show different links based on login status -->
                      {% if session['user_id'] %}
                         <a class="nav-link" href="/logout">Logout</a>
                     {% else %}
@@ -47,35 +46,42 @@
                     {% endif %}
                 </div>
             </div>
-            <!-- Search form - aligned to the right -->
+
             <form class="form-inline my-2 my-lg-0 d-flex" action="{{ url_for('search') }}" method="GET">
                  <input class="form-control me-2 search-input" type="search" name="q" placeholder="Search recipes..." aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
+
         </div>
     </nav>
 
-    <!--  2 Column Layout  -->
+    <!-- Layout -->
     <div class="container mt-2">
         <div class="row">
 
-            <!-- Column 1: Main Content -->
-            <div id="main-content" class="col-md-8">
+            <!-- Main Content Column -->
+            {% if title == "Welcome" %}
+                <div id="main-content" class="col-12 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            {% else %}
+                <div id="main-content" class="col-md-8">
+            {% endif %}
 
-                   <!-- Flash Messages: This will display any error/success/status messages to the user -->
-                    {% for category, message in get_flashed_messages(with_categories=True) %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
 
-                    {% block content %}
-                    {% endblock %}
+                <!-- Flash Messages -->
+                {% for category, message in get_flashed_messages(with_categories=True) %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+
+                {% block content %}
+                {% endblock %}
 
             </div>
 
-            <!-- Column 2: Sidebar -->
+            <!-- Sidebar Column (hidden on home page) -->
+            {% if title != "Welcome" %}
             <div id="sidebar" class="col-md-4">
-
-                <!-- Welcome card at the top of sidebar -->
+            
+                <!-- Quick Links Card -->
                 <div class="card mb-1 welcome-card">
                     <div class="card-header text-center welcome-card-header">
                         🍳 Quick Links
@@ -87,34 +93,35 @@
                     </div>
                 </div>
 
-
-                    <!-- Shopping list card -->
-                    <div class="card mb-3" style="border: 2px solid #a4c2a5; background: white;">
+                <!-- Shopping List Card -->
+                <div class="card mb-3" style="border: 2px solid #a4c2a5; background: white;">
                     <div class="card-body">
-                        <h5 class="card-title"style="color: #566246;"> Shopping List</h5>
-                        <p class="card-text"style="color: #4a4a48;">Keep track of ingredients you need for your favorite recipes. Never forget an item again!</p>
+                        <h5 class="card-title" style="color: #566246;">Shopping List</h5>
+                        <p class="card-text" style="color: #4a4a48;">Keep track of ingredients you need for your favorite recipes. Never forget an item again!</p>
                         <a href="/shoppingList" class="btn btn-secondary w-100">View List</a>
                     </div>
-                    </div>
                 </div>
-                <!-- Featured tip card -->
+
+                <!-- Cooking Tip Card -->
                 <div class="card mb-3" style="border: 2px solid #566246; background: white;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: #566246;">Cooking Tip</h5>
                         <p class="card-text" style="color: #4a4a48; font-style: italic;">"Always read the entire recipe before you start cooking. This helps you prepare all ingredients and avoid surprises!"</p>
                     </div>
                 </div>
+
                 {% block sidebarContent %}
-                <!-- This is where any sidebar content from child templates will be inserted -->
                 {% endblock %}
             </div>
+            {% endif %}
 
         </div>
     </div>
+
     <footer class="text-center mt-4">
-        <p>&copy; 2025</p>
+          <p>&copy; 2025 KitchenHub</p>
+     
     </footer>
 
 </body>
-
 </html>
