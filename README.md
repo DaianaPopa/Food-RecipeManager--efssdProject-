@@ -1,4 +1,4 @@
-# Food-RecipeManager-(efssdProject)
+# A user guide document for Food-RecipeManager-(efssdProject)
 Phyton-Flask
 
 # a. The problem solved by our app
