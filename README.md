@@ -1,24 +1,22 @@
-# Food-RecipeManager-(efssdProject)
+# A user guide document for Food-RecipeManager-(efssdProject)
 Phyton-Flask
 
+# a. The problem solved by our app
+The KitchenHub is the platfrom that solve the problem of planning meals, organise shopping list and managing recipes, because many people find it dificult to remeber the ingredient or cook a meal in time. 
 
-a. The problem solved by your app
-
-b. How your app solves the problem
+# b. How your app solves the problem
 i. What functionality does it provide?
+recipe managemt(crud operations), search funtion, role base acounts, contact form page, video. 
 ii. How does that functionality solve the problem?
+helps organise meals, do not forget the igredients, allows comunication. 
 
-c. Detailed instructions on how to use the app
+# c. Detailed instructions on how to use the app
+-open the app in a browser (using localhost:81)
+-browse the app
+-create an account or log in 
+-as an admin you can create, delete or update the recipes 
+-as an user you can complete the contact form, search for recipes and make a shopping list
 
-d. Login details for a user and a superuser (admin) for your app
-
-2. A project document, to include
-a. A project plan
-i. What tasks were completed?
-ii. By whom?
-iii. When? (start date and end date)
-
-b. Completed test plan(s) for your web app
-c. A link to the Git repository for your code
-d. An AI transparency declaration statement (see below)
-4. The slides that will be used in your presentation
+# d. Login details for a user and a superuser (admin) for your app
+user1 - password
+admin- password
