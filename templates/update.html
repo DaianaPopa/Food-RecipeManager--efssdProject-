@@ -3,7 +3,8 @@
 {% block content %}
 <h1>Update Recipe</h1>
 <hr>
-<form method="POST" action="/update/{{ recipe.id }}">
+<form method="POST" action="/update/{{ recipe.id }}" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" name="title" value="{{ recipe.title }}" required>
@@ -34,7 +35,7 @@
     </div>
     <div class="col-12 mt-0">
         <label for="poster">Poster</label>
-        <input type="poster" type="file" accept="image/*" class="form-control" id="poster" name="poster" value="{{ recipe.poster }}">
+        <input type="poster" type="file" accept="image/*" class="form-control" id="poster" name="poster">
     </div>
     <button type="submit" class="btn green-btn">Update Recipe</button>
 </form>

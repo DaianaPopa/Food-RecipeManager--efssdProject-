@@ -100,7 +100,6 @@ def login():
 
     return render_template('login.html', title="Log In")
 
-
 # LOGOUT
 @app.route('/logout/')
 def logout():
@@ -108,19 +107,16 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
-
 # SHOPPING LIST
 @app.route('/shoppingList')
 def shoppingList():
     return render_template("shoppingList.html")
-
 
 # RECIPES LIST  
 @app.route('/recipes/')
 def recipes():
     recipes_list = get_all_recipes()
     return render_template('recipes.html', title="All Recipes", recipes=recipes_list)
-
 
 # RECIPE DETAIL
 @app.route('/recipe/<int:id>/')
@@ -140,31 +136,32 @@ def recipe(id):
         ingredients=ingredients
     )
 
-
-
 # CREATE RECIPE  
 @app.route('/create/', methods=('GET', 'POST'))
 def create():
-
     if request.method == 'POST':
-
-        name = request.form['name']
-        description = request.form.get('description', '')
+        name = request.form.get('name', '').strip()
+        method = request.form.get('method', '').strip()
+        cook_time = request.form.get('cook_time', '').strip()
+        prep_time = request.form.get('prep_time', '').strip()
+        portion = request.form.get('portion', '').strip()
+        poster = request.form.get('poster', '').strip()
+        cuisine = request.form.get('cuisine', '').strip()
+        rating = request.form.get('rating', '').strip()
+        review = request.form.get('review', '').strip()
 
         if not name:
             flash('Recipe name is required!', 'danger')
-            return render_template('create.html')
+            return render_template('create.html', title="Add a Recipe")
 
-        # Create the recipe
-        user_id = session.get('user_id', 1)  # Default user if not logged in
-        create_recipe(name, description, user_id)
+        rating_value = int(rating) if rating.isdigit() else None
+
+        create_recipe(name, method, cook_time, prep_time, portion, poster, cuisine, rating_value, review)
 
         flash('Recipe created successfully!', 'success')
         return redirect(url_for('recipes'))
 
     return render_template('create.html', title="Add a Recipe")
-
-
 
 # UPDATE RECIPE  
 @app.route('/update/<int:id>/', methods=('GET', 'POST'))
@@ -178,22 +175,24 @@ def update(id):
     recipe, ingredients, ingredient_ids = data
 
     if request.method == 'POST':
-
-        name = request.form['name']
-        desc = request.form.get('description', '')
+        name = request.form.get('title', '').strip()
+        prep_time = request.form.get('prep_time', '').strip()
+        cook_time = request.form.get('cook_time', '').strip()
+        cuisine = request.form.get('cuisine', '').strip()
+        rating = request.form.get('rating', '').strip()
+        review = request.form.get('review', '').strip()
 
         if not name:
             flash('Recipe name is required!', 'danger')
             return render_template('update.html', recipe=recipe, ingredients=ingredients)
 
         # Update recipe fields
-        update_recipe(id, name, desc)
+        update_recipe(id, name, prep_time, cook_time, cuisine, rating, review)
 
         flash('Recipe updated successfully!', 'success')
         return redirect(url_for('recipe', id=id))
 
     return render_template('update.html', title="Update Recipe", recipe=recipe, ingredients=ingredients)
-
 
 # DELETE RECIPE 
 @app.route('/delete/<int:id>', methods=('POST',))

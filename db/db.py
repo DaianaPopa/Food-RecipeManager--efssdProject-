@@ -82,21 +82,27 @@ def get_recipe_by_id(recipe_id):
     return recipe, ingredients, ingredient_ids
 
 
-def create_recipe(name, description, user_id):
+def create_recipe(name, method, cook_time, prep_time, portion, poster, cuisine, rating, review):
     conn = get_db_connection()
     conn.execute(
-        "INSERT INTO recipes (name, description, user_id) VALUES (?, ?, ?)",
-        (name, description, user_id)
+        """INSERT INTO recipes
+        (name, method, cook_time, prep_time, portion, poster, cuisine, rating, review)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (name, method, cook_time, prep_time, portion, poster, cuisine, rating, review)
     )
     conn.commit()
     conn.close()
 
-
-def update_recipe(recipe_id, name, description):
+def update_recipe(recipe_id, name, prep_time, cook_time, cuisine, rating, review):
     conn = get_db_connection()
     conn.execute(
-        "UPDATE recipes SET name=?, description=? WHERE id=?",
-        (name, description, recipe_id)
+        """
+        UPDATE recipes
+        SET name = ?, prep_time = ?, cook_time = ?, cuisine = ?, rating = ?, review = ?
+        WHERE id = ?
+        """,
+        (name, prep_time, cook_time, cuisine, rating, review, recipe_id)
     )
     conn.commit()
     conn.close()
@@ -153,7 +159,7 @@ def update_recipe_ingredients(recipe_id, ingredients):
 
 def delete_recipe_ingredients(recipe_id):
     conn = get_db_connection()
-    conn.execute("DELETE FROM ingredients WHERE recipe_id=?", (recipe_id,))
+    conn.execute("DELETE FROM recipe_ingredients WHERE recipe_id = ?", (recipe_id,))
     conn.commit()
     conn.close()
 
