@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="d-flex flex-column align-items-center text-center">
+<div class="d-flex flex-column align-items-center text-center" style="min-height: 80vh; padding-bottom: 60px;">
 
     <!-- Welcome Card -->
     <div class="card mb-4 shadow-sm" style="background-color: #f1f2eb; border: 2px solid #566246; max-width: 800px; width: 100%;">
@@ -63,6 +63,14 @@
             </div>
         </div>
     </div>
+</div>
+
+{% if session['user_id'] %}
+<!-- Floating Corner Icon -->
+<a href="/contact" class="corner-icon" title="Contact Us">
+    <i class="fas fa-envelope"></i>
+</a>
+{% endif %}
 
 </div>
 
